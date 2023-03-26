@@ -18,8 +18,8 @@ if required_plugins_installed
 end
 
 domains = {
-  frontend: 'shop-dev',
-  backend:  'shop-backend-dev'
+  frontend: 'shop.dew',
+  backend:  'shop-backend.dew'
 }
 
 config = {
@@ -42,10 +42,6 @@ end
 Vagrant.configure(2) do |config|
   # select the box
   config.vm.box = 'bento/ubuntu-18.04'
-
-  config.vm.box_download_insecure = true
-
-  config.ssh.forward_agent = true
 
   # should we ask about box updates?
   config.vm.box_check_update = options['box_check_update']

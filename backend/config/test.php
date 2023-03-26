@@ -9,8 +9,7 @@ return [
             'showScriptName' => true,
         ],
         'request' => [
-            #'cookieValidationKey' => 'test',
-            'cookieValidationKey' => 'PP9z530CbvRcWwxCBe2dZlgmfkEJrRY5',
+            'cookieValidationKey' => 'test',
         ],
     ],
 ];

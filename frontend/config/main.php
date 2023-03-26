@@ -1,5 +1,7 @@
 <?php
 
+use yii\log\FileTarget;
+
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
     require __DIR__ . '/../../common/config/params-local.php',
@@ -14,6 +16,7 @@ return [
     'controllerNamespace' => 'frontend\controllers',
     'components'          => [
         'request'      => [
+            'baseUrl'   => '',
             'csrfParam' => '_csrf-frontend',
         ],
         'user'         => [
@@ -29,7 +32,7 @@ return [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets'    => [
                 [
-                    'class'  => \yii\log\FileTarget::class,
+                    'class'  => FileTarget::class,
                     'levels' => ['error', 'warning'],
                 ],
             ],
@@ -42,15 +45,17 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName'  => false,
             'rules'           => [
-                ''                  => 'site/index',
-                /*'<_a:login|logout|about|contact|signup>' => 'site/<_a>',
+                ''           => 'site/index',
+                //'<_a:login|about|contact|signup>' => 'site/<_a>',
+                '<_a:[\w-]+>' => 'site/<_a>',
 
                 '<_c:[\w\-]+>'                       => '<_c>/index',
                 '<_c:[\w\-]+>/<id:\d+>'              => '<_c>/view',
                 '<_c:[\w\-]+>/<_a:[\w-]+>'           => '<_c>/<_a>',
-                '<_c:[\w\-]+>/<id:\d+>/<_a:[\w\-]+>' => '<_c>/<_a>',*/
+                '<_c:[\w\-]+>/<id:\d+>/<_a:[\w\-]+>' => '<_c>/<_a>',
             ],
         ],
+
     ],
     'params'              => $params,
 ];

@@ -1,16 +1,19 @@
 <?php
 
+use yii\db\Connection;
+use yii\symfonymailer\Mailer;
+
 return [
     'components' => [
         'db' => [
-            'class' => \yii\db\Connection::class,
-            'dsn' => 'mysql:host=192.168.83.137;dbname=shop',
+            'class' => Connection::class,
+            'dsn' => 'mysql:host=localhost;dbname=shop',
             'username' => 'root',
             'password' => '',
             'charset' => 'utf8',
         ],
         'mailer' => [
-            'class' => \yii\symfonymailer\Mailer::class,
+            'class' => Mailer::class,
             'viewPath' => '@common/mail',
             // send all mails to a file by default.
             'useFileTransport' => true,

@@ -5,8 +5,8 @@ namespace backend\controllers;
 use common\models\LoginForm;
 use Yii;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\ErrorAction;
 use yii\web\Response;
 
 /**
@@ -36,7 +36,7 @@ class SiteController extends Controller
     {
         return [
             'error' => [
-                'class' => \yii\web\ErrorAction::class,
+                'class' => ErrorAction::class,
             ],
         ];
     }
