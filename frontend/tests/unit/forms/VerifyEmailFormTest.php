@@ -1,11 +1,11 @@
 <?php
 
-namespace frontend\tests\unit\models;
+namespace frontend\tests\unit\forms;
 
 use Codeception\Test\Unit;
 use common\fixtures\UserFixture;
-use common\models\User;
-use frontend\models\VerifyEmailForm;
+use common\entities\User;
+use frontend\forms\VerifyEmailForm;
 
 class VerifyEmailFormTest extends Unit
 {
@@ -47,7 +47,7 @@ class VerifyEmailFormTest extends Unit
     {
         $model = new VerifyEmailForm('4ch0qbfhvWwkcuWqjN8SWRq72SOw1KYT_1548675330');
         $user = $model->verifyEmail();
-        verify($user)->instanceOf('common\models\User');
+        verify($user)->instanceOf('common\entities\User');
 
         verify($user->username)->equals('test.test');
         verify($user->email)->equals('test@mail.com');

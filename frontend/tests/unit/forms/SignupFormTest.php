@@ -1,11 +1,11 @@
 <?php
 
-namespace frontend\tests\unit\models;
+namespace frontend\tests\unit\forms;
 
 use Codeception\Test\Unit;
 use common\fixtures\UserFixture;
-use common\models\User;
-use frontend\models\SignupForm;
+use common\entities\User;
+use frontend\forms\SignupForm;
 
 class SignupFormTest extends Unit
 {
@@ -17,31 +17,38 @@ class SignupFormTest extends Unit
 
     public function _before()
     {
-        $this->tester->haveFixtures([
-            'user' => [
-                'class' => UserFixture::class,
-                'dataFile' => codecept_data_dir() . 'user.php'
+        $this->tester->haveFixtures(
+            [
+                'user' => [
+                    'class'    => UserFixture::class,
+                    'dataFile' => codecept_data_dir() . 'user.php'
+                ]
             ]
-        ]);
+        );
     }
 
     public function testCorrectSignup()
     {
-        $model = new SignupForm([
-            'username' => 'some_username',
-            'email' => 'some_email@example.com',
-            'password' => 'some_password',
-        ]);
+        $model = new SignupForm(
+            [
+                'username' => 'some_username',
+                'email'    => 'some_email@example.com',
+                'password' => 'some_password',
+            ]
+        );
 
         $user = $model->signup();
         verify($user)->notEmpty();
 
         /** @var User $user */
-        $user = $this->tester->grabRecord('common\models\User', [
-            'username' => 'some_username',
-            'email' => 'some_email@example.com',
-            'status' => User::STATUS_INACTIVE
-        ]);
+        $user = $this->tester->grabRecord(
+            'common\entities\User',
+            [
+                'username' => 'some_username',
+                'email'    => 'some_email@example.com',
+                'status'   => User::STATUS_INACTIVE
+            ]
+        );
 
         $this->tester->seeEmailIsSent();
 
@@ -56,11 +63,13 @@ class SignupFormTest extends Unit
 
     public function testNotCorrectSignup()
     {
-        $model = new SignupForm([
-            'username' => 'troy.becker',
-            'email' => 'nicolas.dianna@hotmail.com',
-            'password' => 'some_password',
-        ]);
+        $model = new SignupForm(
+            [
+                'username' => 'troy.becker',
+                'email'    => 'nicolas.dianna@hotmail.com',
+                'password' => 'some_password',
+            ]
+        );
 
         verify($model->signup())->empty();
         verify($model->getErrors('username'))->notEmpty();
