@@ -37,7 +37,7 @@ class SignupFormTest extends Unit
             ]
         );
 
-        $user = $model->signup();
+        $user = $model->validate();
         verify($user)->notEmpty();
 
         /** @var User $user */
@@ -71,7 +71,7 @@ class SignupFormTest extends Unit
             ]
         );
 
-        verify($model->signup())->empty();
+        verify($model->validate())->empty();
         verify($model->getErrors('username'))->notEmpty();
         verify($model->getErrors('email'))->notEmpty();
 

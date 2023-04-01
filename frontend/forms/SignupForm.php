@@ -27,7 +27,7 @@ class SignupForm extends Model
             [
                 'username',
                 'unique',
-                'targetClass' => '\common\entities\User',
+                'targetClass' => User::class,
                 'message'     => 'This username has already been taken.'
             ],
             ['username', 'string', 'min' => 2, 'max' => 255],
@@ -39,7 +39,7 @@ class SignupForm extends Model
             [
                 'email',
                 'unique',
-                'targetClass' => '\common\entities\User',
+                'targetClass' => User::class,
                 'message'     => 'This email address has already been taken.'
             ],
 
@@ -53,7 +53,7 @@ class SignupForm extends Model
      *
      * @return bool whether the creating new account was successful and email was sent
      */
-    public function signup()
+    /*public function signup()
     {
         if (!$this->validate()) {
             return null;
@@ -62,14 +62,14 @@ class SignupForm extends Model
         $user = User::signup($this->username, $this->email, $this->password);
 
         return $user->save() && $this->sendEmail($user);
-    }
+    }*/
 
     /**
      * Sends confirmation email to user
      * @param User $user user model to with email should be send
      * @return bool whether the email was sent
      */
-    protected function sendEmail($user)
+   /* protected function sendEmail($user)
     {
         return Yii::$app
             ->mailer
@@ -81,5 +81,5 @@ class SignupForm extends Model
             ->setTo($this->email)
             ->setSubject('Account registration at ' . Yii::$app->name)
             ->send();
-    }
+    }*/
 }

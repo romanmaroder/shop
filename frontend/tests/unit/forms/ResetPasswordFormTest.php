@@ -24,22 +24,23 @@ class ResetPasswordFormTest extends Unit
         ]);
     }
 
-    public function testResetWrongToken()
+    public function testWrongToken()
     {
-        $this->tester->expectThrowable('\yii\base\InvalidArgumentException', function() {
+        $this->tester->expectThrowable('\yii\base\InvalidParamException', function() {
             new ResetPasswordForm('');
         });
 
-        $this->tester->expectThrowable('\yii\base\InvalidArgumentException', function() {
+        $this->tester->expectThrowable('\yii\base\InvalidParamException', function() {
             new ResetPasswordForm('notexistingtoken_1391882543');
         });
     }
 
-    public function testResetCorrectToken()
+    public function testCorrectToken()
     {
         $user = $this->tester->grabFixture('user', 0);
         $form = new ResetPasswordForm($user['password_reset_token']);
-        verify($form->resetPassword())->notEmpty();
+        $form->password ='new-password';
+        verify($form->validate());
     }
 
 }
