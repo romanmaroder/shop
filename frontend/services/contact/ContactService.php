@@ -25,14 +25,14 @@ class ContactService
 
     public function send(ContactForm $form)
     {
-        $send = $this->mailer->compose()
+        $sent = $this->mailer->compose()
             //->setFrom($this->supportEmail) The setting is in the file common\main-local.php
             ->setTo($this->adminEmail)
             ->setSubject($form->subject)
             ->setTextBody($form->body)
             ->send();
 
-        if (!$send) {
+        if (!$sent) {
             throw new \RuntimeException('Sending error');
         }
     }

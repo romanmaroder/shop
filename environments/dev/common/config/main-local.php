@@ -17,6 +17,9 @@ return [
             'viewPath' => '@common/mail',
             // send all mails to a file by default.
             'useFileTransport' => true,
+            'messageConfig'=>[
+                'from'=>['support@example.com'=>'Shop']
+            ]
             // You have to set
             //
             // 'useFileTransport' => false,

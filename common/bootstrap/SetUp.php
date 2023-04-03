@@ -38,10 +38,11 @@ class SetUp implements BootstrapInterface
             ContactService::class,
             [],
             [
-                $app->params['adminEmail'],
+               // $app->params['adminEmail'],
 
-                //Optional parameter. The framework will substitute MailerInterface itself, via reflection, registered in the container
-                Instance::of(MailerInterface::class)
+                /* Optional parameter. The framework will substitute MailerInterface itself,
+                   via reflection, registered in the container
+                Instance::of(MailerInterface::class) */
             ]
         );
     }

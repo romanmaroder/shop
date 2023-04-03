@@ -61,6 +61,7 @@ class LoginFormTest extends Unit
             'password' => 'password_0',
         ]);
 
+
         verify($model->login())->true();
         verify($model->errors)->arrayHasNotKey('password');
         verify(Yii::$app->user->isGuest)->false();

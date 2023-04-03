@@ -15,6 +15,9 @@ return [
         'mailer' => [
             'class' => Mailer::class,
             'viewPath' => '@common/mail',
+            'messageConfig'=>[
+                'from'=>['support@example.com'=>'Shop']
+            ]
         ],
     ],
 ];
