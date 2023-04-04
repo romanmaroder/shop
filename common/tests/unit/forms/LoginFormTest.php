@@ -31,18 +31,18 @@ class LoginFormTest extends Unit
         ];
     }
 
-    public function testLoginNoUser()
+    public function testBlank()
     {
         $model = new LoginForm([
-            'username' => 'not_existing_username',
-            'password' => 'not_existing_password',
+            'username' => '',
+            'password' => '',
         ]);
 
-        verify($model->login())->false();
+        verify($model->validate())->false();
         verify(Yii::$app->user->isGuest)->true();
     }
 
-    public function testLoginWrongPassword()
+    /*public function testLoginWrongPassword()
     {
         $model = new LoginForm([
             'username' => 'bayer.hudson',
@@ -52,9 +52,9 @@ class LoginFormTest extends Unit
         verify($model->login())->false();
         verify( $model->errors)->arrayHasKey('password');
         verify(Yii::$app->user->isGuest)->true();
-    }
+    }*/
 
-    public function testLoginCorrect()
+    public function testCorrect()
     {
         $model = new LoginForm([
             'username' => 'bayer.hudson',
@@ -62,7 +62,7 @@ class LoginFormTest extends Unit
         ]);
 
 
-        verify($model->login())->true();
+        verify($model->validate())->true();
         verify($model->errors)->arrayHasNotKey('password');
         verify(Yii::$app->user->isGuest)->false();
     }

@@ -8,6 +8,12 @@ use RuntimeException;
 
 class UserRepository
 {
+    public function findByUsernameOrEmail($value): ?User
+    {
+        return User::find()->andWhere(['or', ['username' => $value], ['email' => $value]])->one();
+    }
+
+
     public function findByVerificationToken($token): User
     {
         return $this->findBy(['verification_token' => $token]);
@@ -45,4 +51,6 @@ class UserRepository
         }
         return $user;
     }
+
+
 }

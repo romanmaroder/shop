@@ -5,8 +5,10 @@ namespace frontend\services\auth;
 
 
 use common\repositories\UserRepository;
+use DomainException;
 use frontend\forms\PasswordResetRequestForm;
 use frontend\forms\ResetPasswordForm;
+use RuntimeException;
 use Yii;
 use yii\mail\MailerInterface;
 
@@ -27,7 +29,7 @@ class PasswordResetService
         $user = $this->users->findByEmail($form->email);
 
         if (!$user->isActive()) {
-            throw new \DomainException('User is not active.');
+            throw new DomainException('User is not active.');
         }
 
         $user->requestPasswordReset();
@@ -45,18 +47,18 @@ class PasswordResetService
             ->send();
 
         if (!$sent) {
-            throw new \RuntimeException('Sending error.');
+            throw new RuntimeException('Sending error.');
         }
     }
 
     public function validateToken($token): void
     {
         if (empty($token) || !is_string($token)) {
-            throw new \DomainException('Password reset token cannot be blank.');
+            throw new DomainException('Password reset token cannot be blank.');
         }
         if (!$this->users
             ->existsByPasswordResetToken($token)) {
-            throw new \DomainException('Wrong password reset token.');
+            throw new DomainException('Wrong password reset token.');
         }
     }
 
