@@ -5,7 +5,9 @@ namespace frontend\services\auth;
 
 
 use common\entities\User;
+use common\repositories\UserRepository;
 use frontend\forms\SignupForm;
+use RuntimeException;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\mail\MailerInterface;
@@ -13,10 +15,12 @@ use yii\mail\MailerInterface;
 class SignupService
 {
 
-    private $mailer;
+    private UserRepository $users;
+    private MailerInterface $mailer;
 
-    public function __construct(MailerInterface $mailer)
+    public function __construct(UserRepository $users, MailerInterface $mailer)
     {
+        $this->users  = $users;
         $this->mailer = $mailer;
     }
 
@@ -24,9 +28,7 @@ class SignupService
     {
         $user = User::requestSignup($form->username, $form->email, $form->password);
 
-        if (!$user->save()) {
-            throw new \RuntimeException('Saving error');
-        }
+        $this->users->save($user);
 
         $sent = $this->mailer
             ->compose(
@@ -38,9 +40,8 @@ class SignupService
             ->send();
 
         if (!$sent) {
-            throw new \RuntimeException('Email sending error.');
+            throw new RuntimeException('Email sending error.');
         }
-
     }
 
     public function confirm($token): void
@@ -48,18 +49,9 @@ class SignupService
         if (empty($token) || !is_string($token)) {
             throw new InvalidArgumentException('Verify email token cannot be blank.');
         }
-
-        $user = User::findByVerificationToken($token);
-
-        if (!$user) {
-            throw new InvalidArgumentException('Wrong verify email token.');
-
-        }
-
+        $user = $this->users->findByVerificationToken($token);
         $user->confirmSignup();
-
-        if (!$user->save()) {
-            throw new InvalidArgumentException('Saving error.');
-        }
+        $this->users->save($user);
     }
+
 }

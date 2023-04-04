@@ -231,16 +231,6 @@ class SiteController extends Controller
                     $e->getMessage()
                 );
             }
-            /*if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
-
-                return $this->goHome();
-            }
-
-            Yii::$app->session->setFlash(
-                'error',
-                'Sorry, we are unable to reset password for the provided email address.'
-            );*/
         }
 
         return $this->render(
@@ -278,11 +268,7 @@ class SiteController extends Controller
                 Yii::$app->session->setFlash('error', $e->getMessage());
             }
         }
-        /*if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->session->setFlash('success', 'New password saved.');
 
-            return $this->goHome();
-        }*/
 
         return $this->render(
             'resetPassword',

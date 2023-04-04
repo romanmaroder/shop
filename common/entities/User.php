@@ -2,7 +2,10 @@
 
 namespace common\entities;
 
+use DomainException;
+use yii\base\Exception;
 use Yii;
+use yii\base\InvalidArgumentException;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -25,7 +28,7 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    const STATUS_DELETED     = 0;
+    const STATUS_DELETED  = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE   = 10;
 
@@ -46,7 +49,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function confirmSignup(): void
     {
         if (!$this->isInactive()) {
-            throw new \DomainException('User is already active.');
+            throw new InvalidArgumentException('User is already active.');
         }
 
         $this->status = self::STATUS_ACTIVE;
@@ -56,7 +59,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function requestPasswordReset(): void
     {
         if (!empty($this->password_reset_token) && self::isPasswordResetTokenValid($this->password_reset_token)) {
-            throw new \DomainException('Password resetting is already requested.');
+            throw new DomainException('Password resetting is already requested.');
         }
         $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
     }
@@ -64,7 +67,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function resetPassword($password): void
     {
         if (empty($this->password_reset_token)) {
-            throw new \DomainException('Password resetting is not requested.');
+            throw new DomainException('Password resetting is not requested.');
         }
         $this->setPassword($password);
         $this->password_reset_token = null;
@@ -187,7 +190,7 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $token password reset token
      * @return bool
      */
-    public static function isPasswordResetTokenValid($token)
+    public static function isPasswordResetTokenValid($token): bool
     {
         if (empty($token)) {
             return false;
@@ -238,39 +241,55 @@ class User extends ActiveRecord implements IdentityInterface
      *
      * @param string $password
      */
-    public function setPassword($password)
+    private function setPassword($password)
     {
-        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+        try {
+            $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+        } catch (Exception $e) {
+            Yii::$app->session->setFlash('error', $e->getMessage());
+        }
     }
 
     /**
      * Generates "remember me" authentication key
      */
-    public function generateAuthKey()
+    private function generateAuthKey()
     {
-        $this->auth_key = Yii::$app->security->generateRandomString();
+        try {
+            $this->auth_key = Yii::$app->security->generateRandomString();
+        } catch (Exception $e) {
+            Yii::$app->session->setFlash('error', $e->getMessage());
+        }
     }
 
     /**
      * Generates new password reset token
      */
-    public function generatePasswordResetToken()
+    private function generatePasswordResetToken()
     {
-        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+        try {
+            $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+        } catch (Exception $e) {
+            Yii::$app->session->setFlash('error', $e->getMessage());
+        }
     }
 
     /**
      * Generates new token for email verification
      */
-    public function generateEmailVerificationToken()
+    private function generateEmailVerificationToken()
     {
-        $this->verification_token = Yii::$app->security->generateRandomString() . '_' . time();
+        try {
+            $this->verification_token = Yii::$app->security->generateRandomString() . '_' . time();
+        } catch (Exception $e) {
+            Yii::$app->session->setFlash('error', $e->getMessage());
+        }
     }
 
     /**
      * Removes email verification token
      */
-    public function removeEmailVerificationToken()
+    private function removeEmailVerificationToken()
     {
         $this->verification_token = null;
     }
@@ -278,7 +297,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * Removes password reset token
      */
-    public function removePasswordResetToken()
+    private function removePasswordResetToken()
     {
         $this->password_reset_token = null;
     }
