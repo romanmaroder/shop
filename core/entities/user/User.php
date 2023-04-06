@@ -1,6 +1,6 @@
 <?php
 
-namespace core\entities;
+namespace core\entities\user;
 
 use DomainException;
 use yii\base\Exception;
@@ -96,7 +96,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function tableName()
     {
-        return '{{%user}}';
+        return '{{%users}}';
     }
 
     /**

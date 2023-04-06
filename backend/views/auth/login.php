@@ -3,7 +3,7 @@
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
 
-/** @var $model core\entities\User */
+/** @var $model \core\entities\User */
 ?>
 <div class="card">
     <div class="card-body login-card-body">

@@ -4,7 +4,7 @@
 namespace core\services\auth;
 
 
-use core\entities\User;
+use core\entities\user\User;
 use core\repositories\UserRepository;
 use core\forms\auth\SignupForm;
 use RuntimeException;

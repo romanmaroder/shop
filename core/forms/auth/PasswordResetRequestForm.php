@@ -2,7 +2,7 @@
 
 namespace core\forms\auth;
 
-use core\entities\User;
+use core\entities\user\User;
 use yii\base\Model;
 
 /**

@@ -4,7 +4,7 @@ namespace core\tests\unit\forms;
 
 use Codeception\Test\Unit;
 use common\fixtures\UserFixture;
-use core\entities\User;
+use core\entities\user\User;
 use core\forms\auth\SignupForm;
 
 class SignupFormTest extends Unit
@@ -42,7 +42,7 @@ class SignupFormTest extends Unit
 
         /** @var User $user */
         $user = $this->tester->grabRecord(
-            'core\entities\User',
+            'core\entities\user\User',
             [
                 'username' => 'some_username',
                 'email'    => 'some_email@example.com',

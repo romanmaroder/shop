@@ -4,7 +4,7 @@ namespace core\forms\auth;
 
 use Yii;
 use yii\base\Model;
-use core\entities\User;
+use core\entities\user\User;
 
 /**
  * Signup form

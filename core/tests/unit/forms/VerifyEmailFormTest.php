@@ -4,7 +4,7 @@ namespace core\tests\unit\forms;
 
 use Codeception\Test\Unit;
 use common\fixtures\UserFixture;
-use core\entities\User;
+use core\entities\user\User;
 use core\forms\auth\VerifyEmailForm;
 
 class VerifyEmailFormTest extends Unit
@@ -47,7 +47,7 @@ class VerifyEmailFormTest extends Unit
     {
         $model = new VerifyEmailForm('4ch0qbfhvWwkcuWqjN8SWRq72SOw1KYT_1548675330');
         $user = $model->verifyEmail();
-        verify($user)->instanceOf('core\entities\User');
+        verify($user)->instanceOf('core\entities\user\User');
 
         verify($user->username)->equals('test.test');
         verify($user->email)->equals('test@mail.com');

@@ -3,7 +3,7 @@
 
 namespace core\repositories;
 
-use core\entities\User;
+use core\entities\user\User;
 use RuntimeException;
 
 class UserRepository
