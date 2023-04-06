@@ -8,9 +8,11 @@ return [
     'enablePrettyUrl' => true,
     'showScriptName'  => false,
     'rules'           => [
-        ''            => 'site/index',
-        //'<_a:login|about|contact|signup>' => 'site/<_a>',
-        '<_a:[\w-]+>' => 'site/<_a>',
+        ''                   => 'site/index',
+        'contact'            => 'contact/index',
+        'signup'             => 'auth/signup/request',
+        'signup/<_a:[\w-]+>' => 'auth/signup/<_a>',
+        '<_a:login|logout>'  => 'auth/auth/<_a>',
 
         '<_c:[\w\-]+>'                       => '<_c>/index',
         '<_c:[\w\-]+>/<id:\d+>'              => '<_c>/view',

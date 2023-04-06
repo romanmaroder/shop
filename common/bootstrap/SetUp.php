@@ -4,7 +4,7 @@ namespace common\bootstrap;
 
 
 use frontend\services\auth\PasswordResetService;
-use frontend\services\contact\ContactService;
+use core\services\contact\ContactService;
 use Yii;
 use yii\base\BootstrapInterface;
 use yii\di\Instance;

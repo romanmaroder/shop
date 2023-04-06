@@ -11,7 +11,7 @@ class SignupCest
 
     public function _before(FunctionalTester $I)
     {
-        $I->amOnRoute('site/signup');
+        $I->amOnRoute('auth/signup/request');
     }
 
     public function signupWithEmptyFields(FunctionalTester $I)
@@ -47,10 +47,10 @@ class SignupCest
             'SignupForm[password]' => 'tester_password',
         ]);
 
-        $I->seeRecord('common\models\User', [
+        $I->seeRecord('core\entities\User', [
             'username' => 'tester',
             'email' => 'tester.email@example.com',
-            'status' => \common\models\User::STATUS_INACTIVE
+            'status' => \core\entities\User::STATUS_INACTIVE
         ]);
 
         $I->seeEmailIsSent();

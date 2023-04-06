@@ -12,7 +12,7 @@ return [
         ],
         'user' => [
             'class' => \yii\web\User::class,
-            'identityClass' => 'common\entities\User',
+            'identityClass' => 'core\entities\User',
             'identityCookie' => new ReplaceArrayValue(['name' => '_identity', 'httpOnly' => true]),
         ],
     ],
