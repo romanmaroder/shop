@@ -48,6 +48,8 @@ $this->beginPage() ?>
         ];
         if (Yii::$app->user->isGuest) {
             $menuItems[] = ['label' => 'Signup', 'url' => ['/auth/signup/request']];
+        }else{
+            $menuItems[] = ['label' => 'Cabinet', 'url' => ['/cabinet/default/index']];
         }
 
         echo Nav::widget(
