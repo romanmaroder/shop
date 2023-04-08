@@ -29,6 +29,15 @@ class UserRepository
             ->one();
     }
 
+    /**
+     * @param $id
+     * @return User
+     */
+    public function get($id): User
+    {
+        return $this->findBy(['id' => $id]);
+    }
+
     public function findByVerificationToken($token): User
     {
         return $this->findBy(['verification_token' => $token]);

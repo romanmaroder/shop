@@ -28,24 +28,30 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?= $form->field($model, 'rememberMe')->checkbox() ?>
 
-            <div class="my-1 mx-0" style="color:#999;">
+            <div class="my-2 mx-0" style="color:#999;">
                 If you forgot your password you can <?= Html::a('reset it', ['auth/reset/request']) ?>.
                 <br>
                 <!--Need new verification email?--> </
             *?= Html::a('Resend', ['auth/signup/resend-verification-email']) */?>
         </div>
-
-        <div class="form-group">
+        <div class='form-group'>
             <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
         </div>
 
         <?php
         ActiveForm::end(); ?>
-        <h2>Socials</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-5">
+        <h2 class="mt-3 mb-2">Socials</h2>
         <?= yii\authclient\widgets\AuthChoice::widget(
             [
-                'baseAuthUrl' => ['auth/network/auth']
+                'baseAuthUrl' => ['auth/network/auth'],
+
             ]
         ); ?>
     </div>
 </div>
+

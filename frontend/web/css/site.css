@@ -89,9 +89,6 @@ a.desc:after {
     outline: none;
 }
 
-.auth-clients {
-    padding: 0 0 20px 0;
-}
 
 /* style breadcrumb widget as in previous bootstrap versions */
 .breadcrumb {
