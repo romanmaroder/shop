@@ -11,4 +11,5 @@ return [
     'cookieDomain'                  => 'example.com',
     'frontendHostInfo'              => 'http://example.com',
     'backendHostInfo'               => 'http://example/admin.com',
+    'bsVersion'                     => '5.x' // will enable Bootstrap 5.x globally
 ];
