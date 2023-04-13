@@ -5,10 +5,10 @@ namespace core\helpers;
 
 
 use core\entities\user\User;
+use Exception;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
-use function PHPUnit\Framework\matches;
 
 class UserHelper
 {
@@ -28,7 +28,7 @@ class UserHelper
      * Return status name
      * @param $status
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public static function statusName($status): string
     {
@@ -53,11 +53,8 @@ class UserHelper
                 break;
             default:
                 $class = 'badge bg-secondary';
-        };
+        }
 
         return Html::tag('span', ArrayHelper::getValue(self::statusList(), $status), ['class' => $class]);
-
-
-
     }
 }
