@@ -1,5 +1,6 @@
 <?php
 
+use core\helpers\UserHelper;
 use yii\helpers\Html;
 use yii\web\YiiAsset;
 use yii\widgets\DetailView;
@@ -12,35 +13,41 @@ $this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 YiiAsset::register($this);
 ?>
-<div class="user-view">
+<div class="invoice p-3 mb-3">
+    <div class="user-view">
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(
-            'Delete',
-            ['delete', 'id' => $model->id],
+        <p>
+            <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a(
+                'Delete',
+                ['delete', 'id' => $model->id],
+                [
+                    'class' => 'btn btn-danger',
+                    'data'  => [
+                        'confirm' => 'Are you sure you want to delete this item?',
+                        'method'  => 'post',
+                    ],
+                ]
+            ) ?>
+        </p>
+
+        <?= DetailView::widget(
             [
-                'class' => 'btn btn-danger',
-                'data'  => [
-                    'confirm' => 'Are you sure you want to delete this item?',
-                    'method'  => 'post',
+                'model'      => $model,
+                'attributes' => [
+                    'id',
+                    'username',
+                    'email:email',
+                    'status',
+                    [
+                        'attribute' => 'status',
+                        'value'     => UserHelper::statusLabel($model->status),
+                        'format'    => 'raw',
+                    ],
+                    'created_at:datetime',
+                    'updated_at:datetime',
                 ],
             ]
         ) ?>
-    </p>
-    <div class='box'>
-        <div class='box-body'>
-            <?= DetailView::widget([
-        'model' => $model,
-            'attributes' => [
-            'id',
-            'username',
-            'email:email',
-            'status',
-            'created_at:datetime',
-            'updated_at:datetime',
-            ],
-            ]) ?>
-        </div>
     </div>
 </div>
