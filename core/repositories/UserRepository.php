@@ -67,6 +67,12 @@ class UserRepository
         }
     }
 
+    public function remove(User $user): void
+    {
+        if (!$user->delete()) {
+            throw new \RuntimeException('Removing error.');
+        }
+    }
 
     private function findBy(array $condition): User
     {

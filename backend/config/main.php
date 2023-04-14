@@ -25,6 +25,7 @@ return [
         'user'         => [
             'identityClass'   => 'core\entities\user\User',
             'enableAutoLogin' => true,
+            'loginUrl' => ['auth/login'],
             'identityCookie'  => [
                 'name'     => '_identity',
                 'httpOnly' => true,

@@ -40,8 +40,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $user           = new User();
         $user->username = $username;
-        $user->email;
-        $user->$email;
+        $user->email    = $email;
         $user->setPassword(!empty($password) ? $password : Yii::$app->security->generateRandomString());
         $user->created_at = time();
         $user->status     = self::STATUS_ACTIVE;

@@ -8,8 +8,9 @@ use core\forms\auth\LoginForm;
 use core\services\auth\AuthService;
 use DomainException;
 use Yii;
+use yii\web\Controller;
 
-class AuthController extends \yii\web\Controller
+class AuthController extends Controller
 {
     private AuthService $service;
 
