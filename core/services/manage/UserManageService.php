@@ -31,7 +31,7 @@ class UserManageService
 
     public function edit($id, UserEditForm $form): void
     {
-        $user= $this->repository->get($id);
+        $user = $this->repository->get($id);
         $user->edit(
             $form->username,
             $form->email

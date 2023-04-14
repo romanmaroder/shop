@@ -115,13 +115,14 @@ class UserController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate(int $id)
     {
         $user = $this->findModel($id);
         $form = new UserEditForm($user);
-        if ($this->request->isPost && $form->load($this->request->post()) && $form->validate()) {
+
+        if ($form->load($this->request->post()) && $form->validate()) {
             try {
-                $this->service->edit($user->$id, $form);
+                $this->service->edit($user->id, $form);
                 return $this->redirect(['view', 'id' => $user->id]);
             } catch (DomainException $e) {
                 Yii::$app->errorHandler->logException($e);

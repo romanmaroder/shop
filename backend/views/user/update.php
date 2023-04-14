@@ -5,7 +5,7 @@ use core\forms\manage\user\UserEditForm;
 use yii\bootstrap5\ActiveForm;
 use yii\helpers\Html;
 
-/** @var yii\web\View $this */
+/** @var $this yii\web\View  */
 /** @var $model UserEditForm */
 /** @var $user User */
 
