@@ -65,7 +65,7 @@ use yii\helpers\Url;
                         ['label' => 'Yii2 PROVIDED', 'header' => true],
                         [
                             'label'   => 'Login',
-                            'url'     => ['site/login'],
+                            'url'     => ['/auth/login'],
                             'icon'    => 'sign-in-alt',
                             'visible' => Yii::$app->user->isGuest
                         ],

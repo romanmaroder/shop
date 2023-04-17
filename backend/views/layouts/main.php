@@ -1,12 +1,13 @@
 <?php
 
-/* @var $this \yii\web\View */
+/* @var $this View */
 
 /* @var $content string */
 
 use hail812\adminlte3\assets\AdminLteAsset;
 use hail812\adminlte3\assets\FontAwesomeAsset;
 use yii\helpers\Html;
+use yii\web\View;
 
 /*Identity User*/
 $user = Yii::$app->user->identity;
@@ -14,7 +15,8 @@ $user = Yii::$app->user->identity;
 
 FontAwesomeAsset::register($this);
 AdminLteAsset::register($this);
-$this->registerCssFile('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback');
+//$this->registerCssFile('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback');
+$this->registerCssFile('https://fonts.cdnfonts.com/css/source-sans-pro?styles=14484,14489,14491,14488,14487&display=fallback');
 
 $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/adminlte/dist');
 

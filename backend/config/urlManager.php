@@ -1,6 +1,6 @@
 <?php
 
-/** @var array $params */
+/** @var  $params */
 
 return
     [
