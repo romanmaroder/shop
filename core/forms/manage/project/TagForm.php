@@ -5,12 +5,13 @@ namespace core\forms\manage\project;
 
 
 use core\entities\project\Tag;
+use core\validators\SlugValidator;
 use yii\base\Model;
 
 class TagForm extends Model
 {
-    public  $name;
-    public  $slug;
+    public $name;
+    public $slug;
 
     private Tag $_tag;
 
@@ -37,8 +38,13 @@ class TagForm extends Model
         return [
             [['name', 'slug'], 'required'],
             [['name', 'slug'], 'string', 'max' => 255],
-            ['slug', 'match', 'pattern' => '#^[a-z0-9_-]*$#s'],
-            [['name', 'slug'], 'unique', 'targetClass' => Tag::class, 'filter' => $this->_tag ? ['<>', 'id', $this->_tag->id] : null]
+            ['slug', SlugValidator::class],
+            [
+                ['name', 'slug'],
+                'unique',
+                'targetClass' => Tag::class,
+                'filter'      => $this->_tag ? ['<>', 'id', $this->_tag->id] : null
+            ]
         ];
     }
 }

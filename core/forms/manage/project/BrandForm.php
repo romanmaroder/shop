@@ -7,6 +7,7 @@ namespace core\forms\manage\project;
 use core\entities\project\Brand;
 use core\forms\CompositeForm;
 use core\forms\manage\MetaForm;
+use core\validators\SlugValidator;
 
 /**
  * @property MetaForm $meta;
@@ -23,7 +24,7 @@ class BrandForm extends CompositeForm
         if ($brand) {
             $this->name   = $brand->name;
             $this->slug   = $brand->slug;
-            $this->meta  = new MetaForm($brand->meta);
+            $this->meta   = new MetaForm($brand->meta);
             $this->_brand = $brand;
         }
         parent::__construct($config);
@@ -37,7 +38,7 @@ class BrandForm extends CompositeForm
         return [
             [['name', 'slug'], 'required'],
             [['name', 'slug'], 'string', 'max' => 255],
-            [['slug'], 'match', 'pattern' => '#^[a-z0-9_-]*$#s'],
+            [['slug'], SlugValidator::class],
             [
                 ['name', 'slug'],
                 'unique',
