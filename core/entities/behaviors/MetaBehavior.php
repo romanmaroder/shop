@@ -5,9 +5,11 @@ namespace core\entities\behaviors;
 
 
 use core\entities\Meta;
+use Exception;
 use yii\base\Behavior;
 use yii\base\Event;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 
 class MetaBehavior extends Behavior
@@ -29,14 +31,18 @@ class MetaBehavior extends Behavior
 
     /**
      * @param Event $event
+     * @throws Exception
      */
     public function onAfterFind(Event $event): void
     {
         $model                     = $event->sender;
         $meta                      = Json::decode($model->getAttribute($this->jsonAttribute));
-        $model->{$this->attribute} = new Meta($meta['title'], $meta['description'], $meta['keywords']);
+        $model->{$this->attribute} = new Meta(
+            ArrayHelper::getValue($meta, 'title'),
+            ArrayHelper::getValue($meta, 'description'),
+            ArrayHelper::getValue($meta, 'keywords'),
+        );
     }
-
     /**
      * @param Event $event
      */
