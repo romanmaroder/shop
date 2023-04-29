@@ -1,17 +1,19 @@
 <?php
 
 
-namespace core\tests\unit\entities\project\tag;
+namespace core\tests\unit\entities\project\Tag;
 
 
 use Codeception\Test\Unit;
 use core\entities\project\Tag;
 
-class CreateTest extends Unit
+class EditTest extends Unit
 {
     public function testSuccess()
     {
         $tag = Tag::create($name = 'Name', $slug = 'slug');
+
+        $tag->edit($name = 'New Name', $slug = 'new-slug');
 
         $this->assertEquals($name, $tag->name);
         $this->assertEquals($slug, $tag->slug);

@@ -10,7 +10,7 @@ use core\forms\auth\VerifyEmailForm;
 class VerifyEmailFormTest extends Unit
 {
     /**
-     * @var \frontend\tests\UnitTester
+     * @var \core\tests\UnitTester
      */
     protected $tester;
 

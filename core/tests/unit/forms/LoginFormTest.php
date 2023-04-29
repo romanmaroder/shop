@@ -13,7 +13,7 @@ use common\fixtures\UserFixture;
 class LoginFormTest extends Unit
 {
     /**
-     * @var \common\tests\UnitTester
+     * @var \core\tests\_support\UnitTester
      */
     protected $tester;
 

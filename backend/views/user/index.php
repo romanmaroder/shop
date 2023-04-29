@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ],
                                 ]
                             ),
-                            'format' => 'datetime',
+                            'format'    => 'datetime',
                         ],
                         [
                             'attribute' => 'username',
@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                         [
                             'class'      => ActionColumn::class,
-                            'urlCreator' => function ($action, User $model, $key, $index, $column) {
+                            'urlCreator' => function ($action, User $model) {
                                 return Url::toRoute([$action, 'id' => $model->id]);
                             }
                         ],

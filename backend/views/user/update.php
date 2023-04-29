@@ -9,9 +9,9 @@ use yii\helpers\Html;
 /** @var $model UserEditForm */
 /** @var $user User */
 
-$this->title                   = 'Update User: ' . $user->id;
+$this->title                   = 'Update User: ' . $user->username;
 $this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $user->id, 'url' => ['view', 'id' => $user->id]];
+$this->params['breadcrumbs'][] = ['label' => $user->username, 'url' => ['view', 'id' => $user->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class='invoice p-3 mb-3'>

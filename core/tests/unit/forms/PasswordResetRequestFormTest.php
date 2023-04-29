@@ -38,7 +38,7 @@ class PasswordResetRequestFormTest extends Unit
         $user = $this->tester->grabFixture('user', 1);
         $model = new PasswordResetRequestForm();
         $model->email = $user['email'];
-//        verify($model->sendEmail())->false();
+        //verify($model->sendEmail())->false();
         verify($model->validate());
     }
 

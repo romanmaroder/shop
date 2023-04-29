@@ -9,8 +9,8 @@ use yii\base\Model;
 
 class TagForm extends Model
 {
-    public string $name;
-    public string $slug;
+    public  $name;
+    public  $slug;
 
     private Tag $_tag;
 
