@@ -4,9 +4,9 @@
 namespace core\entities\project;
 
 
+use core\entities\behaviors\MetaBehavior;
 use core\entities\Meta;
 use yii\db\ActiveRecord;
-use yii\helpers\Json;
 
 /**
  * @property integer $id
@@ -48,30 +48,14 @@ class Brand extends ActiveRecord
         return '{{%core_brands}}';
     }
 
-
-    public function afterFind(): void
-    {
-        $meta       = Json::decode($this->getAttribute('meta_json'));
-        $this->meta = new Meta($meta['title'], $meta['description'], $meta['keywords']);
-        parent::afterFind();
-    }
-
     /**
-     * @param bool $insert
-     * @return bool
+     * @return string[]
      */
-    public function beforeSave($insert): bool
+    public function behaviors(): array
     {
-        $this->setAttribute(
-            'meta_json',
-            Json::encode(
-                [
-                    'title'       => $this->meta->title,
-                    'description' => $this->meta->description,
-                    'keywords'    => $this->meta->keywords
-                ]
-            )
-        );
-        return parent::beforeSave($insert);
+        return [
+            MetaBehavior::class
+        ];
     }
+
 }
