@@ -14,8 +14,8 @@ use yii\helpers\Json;
 
 class MetaBehavior extends Behavior
 {
-    public $attribute = 'meta';
-    public $jsonAttribute = 'meta_json';
+    public string $attribute = 'meta';
+    public string $jsonAttribute = 'meta_json';
 
     /**
      * @return string[]
@@ -43,6 +43,7 @@ class MetaBehavior extends Behavior
             ArrayHelper::getValue($meta, 'keywords'),
         );
     }
+
     /**
      * @param Event $event
      */
@@ -50,7 +51,7 @@ class MetaBehavior extends Behavior
     {
         $model = $event->sender;
         $model->setAttribute(
-            'meta_json',
+            $this->jsonAttribute,
             Json::encode(
                 [
                     'title'       => $model->{$this->attribute}->title,
