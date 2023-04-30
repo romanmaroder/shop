@@ -4,6 +4,7 @@
 namespace core\forms\manage\project\product;
 
 
+use core\entities\project\product\Product;
 use yii\base\Model;
 
 class PriceForm extends Model

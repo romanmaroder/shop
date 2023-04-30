@@ -5,6 +5,7 @@ namespace core\forms\manage\project\product;
 
 
 use core\entities\project\Characteristic;
+use core\entities\project\product\Product;
 use core\forms\CompositeForm;
 use core\forms\manage\MetaForm;
 
