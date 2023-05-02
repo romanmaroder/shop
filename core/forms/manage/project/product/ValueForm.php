@@ -4,6 +4,7 @@
 namespace core\forms\manage\project\product;
 
 use core\entities\project\Characteristic;
+use core\entities\project\product\Value;
 use yii\base\Model;
 
 /**
@@ -11,7 +12,7 @@ use yii\base\Model;
  */
 class ValueForm extends Model
 {
-    public $value;
+    public string $value;
 
     private Characteristic $_characteristic;
 

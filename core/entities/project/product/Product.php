@@ -12,6 +12,7 @@ use DomainException;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\web\UploadedFile;
 
 /**
  * @property integer $id
@@ -30,6 +31,7 @@ use yii\db\ActiveRecord;
  * @property Category $category
  * @property CategoryAssignment[] $categoryAssignments
  * @property Value[] $values
+ * @property Photo[] $photos
  */
 class Product extends ActiveRecord
 {
@@ -80,25 +82,25 @@ class Product extends ActiveRecord
      * @param $id
      * @param $value
      */
-    public function setValue($id,$value):void
+    public function setValue($id, $value): void
     {
         $values = $this->values;
-        foreach ($values as $val){
-            if ($val->isForCharacteristic($id)){
+        foreach ($values as $val) {
+            if ($val->isForCharacteristic($id)) {
                 $val->change($value);
                 $this->values = $values;
                 return;
             }
         }
-        $values[] = Value::create($id,$value);
+        $values[]     = Value::create($id, $value);
         $this->values = $values;
     }
 
-    public function getValue($id):Value
+    public function getValue($id): Value
     {
         $values = $this->values;
         foreach ($values as $val) {
-            if ($values->isForCharacteristic($id)){
+            if ($values->isForCharacteristic($id)) {
                 return $val;
             }
         }
@@ -136,10 +138,92 @@ class Product extends ActiveRecord
         throw new DomainException('Assignment is not found.');
     }
 
-
     public function revokeCategories(): void
     {
         $this->categoryAssignments = [];
+    }
+
+    /**
+     * @param UploadedFile $file
+     */
+    public function addPhoto(UploadedFile $file): void
+    {
+        $photos   = $this->photos;
+        $photos[] = Photo::create($file);
+        $this->updatePhotos($photos);
+    }
+
+    /**
+     * @param $id
+     */
+    public function removePhoto($id): void
+    {
+        $photos = $this->photos;
+        foreach ($photos as $i => $photo) {
+            if ($photo->isIdEqualTo($id)) {
+                unset($photos[$i]);
+                $this->updatePhotos($photos);
+                return;
+            }
+        }
+        throw new DomainException('Photo is not found.');
+    }
+
+    /**
+     * @param $id
+     */
+    public function removePhotos($id): void
+    {
+        $this->updatePhotos([]);
+    }
+
+    /**
+     * @param $id
+     */
+    public function movePhotoUp($id): void
+    {
+        $photos = $this->photos;
+        foreach ($photos as $i => $photo) {
+            if ($photo->isIdEqualTo($id)) {
+                if ($prev = $photo[$i - 1] ?? null) {
+                    $photos[$i - 1] = $photo;
+                    $photos[$i]     = $prev;
+                    $this->updatePhotos($photos);
+                }
+                return;
+            }
+        }
+        throw new DomainException('Photo is not found.');
+    }
+
+    /**
+     * @param $id
+     */
+    public function movePhotoDown($id): void
+    {
+        $photos = $this->photos;
+        foreach ($photos as $i => $photo) {
+            if ($photo->isIdEqualTo($id)) {
+                if ($next = $photo[$i + 1] ?? null) {
+                    $photos[$i]     = $next;
+                    $photos[$i + 1] = $photo;
+                    $this->updatePhotos($photos);
+                }
+                return;
+            }
+        }
+        throw new DomainException('Photo is not found.');
+    }
+
+    /**
+     * @param array $photos
+     */
+    private function updatePhotos(array $photos): void
+    {
+        foreach ($photos as $i => $photo) {
+            $photo->setSort($i);
+        }
+        $this->photos = $photos;
     }
 
     /**
@@ -192,4 +276,6 @@ class Product extends ActiveRecord
             self::SCENARIO_DEFAULT => self::OP_ALL,
         ];
     }
+
+
 }
