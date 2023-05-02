@@ -20,6 +20,7 @@ class ProductEditForm extends CompositeForm
     public $brandId;
     public $code;
     public $name;
+    public $description;
 
     private Product $_product;
 
@@ -28,6 +29,7 @@ class ProductEditForm extends CompositeForm
         $this->brandId = $product->brand_id;
         $this->code = $product->code;
         $this->name = $product->name;
+        $this->description = $product->description;
         $this->meta = new MetaForm($product->meta);
         $this->tags = new TagsForm($product);
         $this->values = array_map(
@@ -46,7 +48,7 @@ class ProductEditForm extends CompositeForm
     public function rules(): array
     {
         return [
-            [['brandId', 'code', 'name'], 'required'],
+            [['brandId', 'code', 'name','description'], 'required'],
             [['brandId'], 'integer'],
             [['code', 'name'], 'string', 'ma[' => 255],
             [

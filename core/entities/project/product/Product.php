@@ -18,6 +18,7 @@ use yii\db\ActiveRecord;
  * @property integer $created_at
  * @property string $code
  * @property string $name
+ * @property string $description
  * @property integer $category_id
  * @property integer $brand_id
  * @property integer $price_old
@@ -28,6 +29,7 @@ use yii\db\ActiveRecord;
  * @property Brand $brand
  * @property Category $category
  * @property CategoryAssignment[] $categoryAssignments
+ * @property Value[] $values
  */
 class Product extends ActiveRecord
 {
@@ -39,16 +41,18 @@ class Product extends ActiveRecord
      * @param $categoryId
      * @param $code
      * @param $name
+     * @param $description
      * @param Meta $meta
      * @return static
      */
-    public static function create($brandId, $categoryId, $code, $name, Meta $meta): self
+    public static function create($brandId, $categoryId, $code, $name, $description, Meta $meta): self
     {
         $product              = new static();
         $product->brand_id    = $brandId;
         $product->category_id = $categoryId;
         $product->code        = $code;
         $product->name        = $name;
+        $product->description = $description;
         $product->meta        = $meta;
         $product->created_at  = time();
         return $product;
@@ -70,6 +74,35 @@ class Product extends ActiveRecord
     public function changeMainCategory($categoryId): void
     {
         $this->category_id = $categoryId;
+    }
+
+    /**
+     * @param $id
+     * @param $value
+     */
+    public function setValue($id,$value):void
+    {
+        $values = $this->values;
+        foreach ($values as $val){
+            if ($val->isForCharacteristic($id)){
+                $val->change($value);
+                $this->values = $values;
+                return;
+            }
+        }
+        $values[] = Value::create($id,$value);
+        $this->values = $values;
+    }
+
+    public function getValue($id):Value
+    {
+        $values = $this->values;
+        foreach ($values as $val) {
+            if ($values->isForCharacteristic($id)){
+                return $val;
+            }
+        }
+        return Value::blank($id);
     }
 
     /**

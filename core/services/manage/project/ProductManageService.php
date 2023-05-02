@@ -39,6 +39,7 @@ class ProductManageService
             $category->id,
             $form->code,
             $form->name,
+            $form->description,
             new Meta(
                 $form->meta->title,
                 $form->meta->description,
@@ -50,6 +51,10 @@ class ProductManageService
         foreach ($form->categories->others as $otherId) {
             $category = $this->categories->get($otherId);
             $product->assignCategory($category->id);
+        }
+
+        foreach ($form->values as $value) {
+            $product->setValue($value->id, $value->value);
         }
 
         $this->products->save($product);

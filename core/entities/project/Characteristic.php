@@ -22,7 +22,7 @@ class Characteristic extends ActiveRecord
     const TYPE_INTEGER = 'integer';
     const TYPE_FLOAT   = 'float';
 
-    public $variants;
+    public array $variants;
 
     /**
      * @param $name
@@ -60,6 +60,30 @@ class Characteristic extends ActiveRecord
         $this->default  = $default;
         $this->variants = $variants;
         $this->sort     = $sort;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isString(): bool
+    {
+        return $this->type === self::TYPE_STRING;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isInteger(): bool
+    {
+        return $this->type === self::TYPE_INTEGER;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFloat(): bool
+    {
+        return $this->type === self::TYPE_FLOAT;
     }
 
     /**
