@@ -6,29 +6,42 @@ namespace core\services\manage\project;
 
 use core\entities\Meta;
 use core\entities\project\product\Product;
+use core\entities\project\Tag;
 use core\forms\manage\project\product\CategoriesForm;
 use core\forms\manage\project\product\PhotosForm;
 use core\forms\manage\project\product\ProductCreateForm;
 use core\repositories\project\BrandRepository;
 use core\repositories\project\CategoryRepository;
 use core\repositories\project\ProductRepository;
+use core\repositories\project\TagRepository;
+use core\services\TransactionManager;
 
 class ProductManageService
 {
     private ProductRepository $products;
     private BrandRepository $brands;
     private CategoryRepository $categories;
+    private TagRepository $tags;
+    private TransactionManager $transaction;
 
-    public function __construct(ProductRepository $products, BrandRepository $brands, CategoryRepository $categories)
-    {
-        $this->products   = $products;
-        $this->brands     = $brands;
-        $this->categories = $categories;
+    public function __construct(
+        ProductRepository $products,
+        BrandRepository $brands,
+        CategoryRepository $categories,
+        TagRepository $tags,
+        TransactionManager $transaction
+    ) {
+        $this->products    = $products;
+        $this->brands      = $brands;
+        $this->categories  = $categories;
+        $this->tags        = $tags;
+        $this->transaction = $transaction;
     }
 
     /**
      * @param ProductCreateForm $form
      * @return Product
+     * @throws \Throwable
      */
     public function create(ProductCreateForm $form): Product
     {
@@ -62,6 +75,24 @@ class ProductManageService
         foreach ($form->photos->files as $file) {
             $product->addPhoto($file);
         }
+
+        foreach ($form->tags->existing as $tagId) {
+            $tag = $this->tags->get($tagId);
+            $product->assignTag($tag->id);
+        }
+
+        $this->transaction->wrap(
+            function () use ($product, $form) {
+                foreach ($form->tags->newNames as $tagName) {
+                    if (!$tag=$this->tags->findByName($tagName)) {
+                        $tag = Tag::create($tagName, $tagName);
+                        $this->tags->save($tag);
+                    }
+                    $product->assignTag($tag->id);
+                }
+                $this->products->save($product);
+            }
+        );
 
         $this->products->save($product);
         return $product;
@@ -125,7 +156,7 @@ class ProductManageService
      * @param $id
      * @param $photoId
      */
-    public function removePhoto($id, $photoId):void
+    public function removePhoto($id, $photoId): void
     {
         $product = $this->products->get($id);
         $product->removePhoto($photoId);

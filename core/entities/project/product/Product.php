@@ -30,6 +30,7 @@ use yii\web\UploadedFile;
  * @property Brand $brand
  * @property Category $category
  * @property CategoryAssignment[] $categoryAssignments
+ * @property TagAssignment[] $tagAssignments
  * @property Value[] $values
  * @property Photo[] $photos
  */
@@ -144,6 +145,45 @@ class Product extends ActiveRecord
     }
 
     /**
+     * @param $id
+     */
+    public function assignTag($id):void
+    {
+        $assignments = $this->tagAssignments;
+        foreach ($assignments as $assignment) {
+            if($assignment->isForTag($id)){
+                return;
+            }
+        }
+        $assignments[] = TagAssignment::create($id);
+        $this->tagAssignments = $assignments;
+    }
+
+    /**
+     * @param $id
+     */
+    public function revokeTag($id):void
+    {
+        $assignments = $this->tagAssignments;
+        foreach ($assignments as $i=> $assignment) {
+            if ($assignment->isForTag($id)){
+                unset($assignments[$i]);
+                $this->tagAssignments = $assignments;
+                return;
+            }
+        }
+        throw new DomainException('Assignment is not found.');
+    }
+
+    /**
+     * @param $id
+     */
+    public function revokeTags($id):void
+    {
+        $this->tagAssignments = [];
+    }
+    
+    /**
      * @param UploadedFile $file
      */
     public function addPhoto(UploadedFile $file): void
@@ -251,6 +291,30 @@ class Product extends ActiveRecord
     }
 
     /**
+     * @return ActiveQuery
+     */
+    public function getTagAssignments(): ActiveQuery
+    {
+        return $this->hasMany(TagAssignment::class, ['product_id'=>'id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getValues(): ActiveQuery
+    {
+        return $this->hasMany(Value::class, ['product_id'=>'id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getPhotos(): ActiveQuery
+    {
+        return $this->hasMany(Photo::class, ['product_id'=>'id'])->orderBy('sort');
+    }
+
+    /**
      * @return string
      */
     public static function tableName(): string
@@ -265,7 +329,7 @@ class Product extends ActiveRecord
             MetaBehavior::class,
             [
                 'class'     => SaveRelationsBehavior::class,
-                'relations' => ['categoryAssignments'],
+                'relations' => ['categoryAssignments','tagAssignments','values','photos'],
             ]
         ];
     }
