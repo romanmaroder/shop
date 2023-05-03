@@ -33,6 +33,7 @@ use yii\web\UploadedFile;
  * @property TagAssignment[] $tagAssignments
  * @property Value[] $values
  * @property Photo[] $photos
+ * @property RelatedAssignment[] relatedAssignments
  */
 class Product extends ActiveRecord
 {
@@ -147,26 +148,26 @@ class Product extends ActiveRecord
     /**
      * @param $id
      */
-    public function assignTag($id):void
+    public function assignTag($id): void
     {
         $assignments = $this->tagAssignments;
         foreach ($assignments as $assignment) {
-            if($assignment->isForTag($id)){
+            if ($assignment->isForTag($id)) {
                 return;
             }
         }
-        $assignments[] = TagAssignment::create($id);
+        $assignments[]        = TagAssignment::create($id);
         $this->tagAssignments = $assignments;
     }
 
     /**
      * @param $id
      */
-    public function revokeTag($id):void
+    public function revokeTag($id): void
     {
         $assignments = $this->tagAssignments;
-        foreach ($assignments as $i=> $assignment) {
-            if ($assignment->isForTag($id)){
+        foreach ($assignments as $i => $assignment) {
+            if ($assignment->isForTag($id)) {
                 unset($assignments[$i]);
                 $this->tagAssignments = $assignments;
                 return;
@@ -178,11 +179,11 @@ class Product extends ActiveRecord
     /**
      * @param $id
      */
-    public function revokeTags($id):void
+    public function revokeTags($id): void
     {
         $this->tagAssignments = [];
     }
-    
+
     /**
      * @param UploadedFile $file
      */
@@ -267,6 +268,34 @@ class Product extends ActiveRecord
     }
 
     /**
+     * @param $id
+     */
+    public function assignRelatedProduct($id): void
+    {
+        $assignments = $this->relatedAssignments;
+        foreach ($assignments as $assignment) {
+            if ($assignment->isForProduct($id)) {
+                return;
+            }
+        }
+        $assignments[]            = RelatedAssignment::create($id);
+        $this->relatedAssignments = $assignments;
+    }
+
+    public function revokeRelatedProduct($id): void
+    {
+        $assignments = $this->relatedAssignments;
+        foreach ($assignments as $i => $assignment) {
+            if ($assignment->isForProduct($id)) {
+                unset($assignments[$i]);
+                $this->relatedAssignments = $assignments;
+                return;
+            }
+        }
+        throw new DomainException('Assignment is not found.');
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getBrand(): ActiveQuery
@@ -295,7 +324,7 @@ class Product extends ActiveRecord
      */
     public function getTagAssignments(): ActiveQuery
     {
-        return $this->hasMany(TagAssignment::class, ['product_id'=>'id']);
+        return $this->hasMany(TagAssignment::class, ['product_id' => 'id']);
     }
 
     /**
@@ -303,7 +332,7 @@ class Product extends ActiveRecord
      */
     public function getValues(): ActiveQuery
     {
-        return $this->hasMany(Value::class, ['product_id'=>'id']);
+        return $this->hasMany(Value::class, ['product_id' => 'id']);
     }
 
     /**
@@ -311,7 +340,7 @@ class Product extends ActiveRecord
      */
     public function getPhotos(): ActiveQuery
     {
-        return $this->hasMany(Photo::class, ['product_id'=>'id'])->orderBy('sort');
+        return $this->hasMany(Photo::class, ['product_id' => 'id'])->orderBy('sort');
     }
 
     /**
@@ -329,7 +358,7 @@ class Product extends ActiveRecord
             MetaBehavior::class,
             [
                 'class'     => SaveRelationsBehavior::class,
-                'relations' => ['categoryAssignments','tagAssignments','values','photos'],
+                'relations' => ['categoryAssignments', 'tagAssignments', 'values', 'photos'],
             ]
         ];
     }
