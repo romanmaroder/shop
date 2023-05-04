@@ -10,6 +10,7 @@ use core\entities\project\Tag;
 use core\forms\manage\project\product\CategoriesForm;
 use core\forms\manage\project\product\PhotosForm;
 use core\forms\manage\project\product\ProductCreateForm;
+use core\forms\manage\project\product\ProductEditForm;
 use core\repositories\project\BrandRepository;
 use core\repositories\project\CategoryRepository;
 use core\repositories\project\ProductRepository;
@@ -84,7 +85,7 @@ class ProductManageService
         $this->transaction->wrap(
             function () use ($product, $form) {
                 foreach ($form->tags->newNames as $tagName) {
-                    if (!$tag=$this->tags->findByName($tagName)) {
+                    if (!$tag = $this->tags->findByName($tagName)) {
                         $tag = Tag::create($tagName, $tagName);
                         $this->tags->save($tag);
                     }
@@ -96,6 +97,48 @@ class ProductManageService
 
         $this->products->save($product);
         return $product;
+    }
+
+
+    public function edit($id, ProductEditForm $form): void
+    {
+        $product = $this->products->get($id);
+        $brand   = $this->brands->get($form->brandId);
+
+        $product->edit(
+            $brand->id,
+            $form->code,
+            $form->name,
+            new Meta(
+                $form->meta->title,
+                $form->meta->description,
+                $form->meta->keywords,
+            )
+        );
+
+        foreach ($form->values as $value) {
+            $product->setValue($value->id, $value->value);
+        }
+
+        $product->revokeTags();
+
+        foreach ($form->tags->existing as $tagId) {
+            $tag = $this->tags->get($tagId);
+            $product->assignTag($tag->id);
+        }
+
+        $this->transaction->wrap(
+            function () use ($product, $form) {
+                foreach ($form->tags->newNames as $tagName) {
+                    if (!$tag = $this->tags->findByName($tagName)) {
+                        $tag = Tag::create($tagName, $tagName);
+                        $this->tags->save($tag);
+                    }
+                    $product->assignTag($tag->id);
+                }
+                $this->products->save($product);
+            }
+        );
     }
 
     /**
@@ -167,10 +210,10 @@ class ProductManageService
      * @param $id
      * @param $otherId
      */
-    public function addRelatedProduct($id,$otherId): void
+    public function addRelatedProduct($id, $otherId): void
     {
         $product = $this->products->get($id);
-        $other = $this->products->get($otherId);
+        $other   = $this->products->get($otherId);
         $product->assignRelatedProduct($other->$id);
         $this->products->save($product);
     }
@@ -179,10 +222,10 @@ class ProductManageService
      * @param $id
      * @param $otherId
      */
-    public function removeRelatedProduct($id,$otherId): void
+    public function removeRelatedProduct($id, $otherId): void
     {
         $product = $this->products->get($id);
-        $other = $this->products->get($otherId);
+        $other   = $this->products->get($otherId);
         $product->revokeRelatedProduct($other->id);
         $this->products->save($product);
     }

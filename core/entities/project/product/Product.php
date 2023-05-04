@@ -72,6 +72,14 @@ class Product extends ActiveRecord
         $this->price_old = $old;
     }
 
+    public function edit($brandId, $code, $name, Meta $meta): void
+    {
+        $this->brand_id = $brandId;
+        $this->code     = $code;
+        $this->name     = $name;
+        $this->meta     = $meta;
+    }
+
     /**
      * @param $categoryId
      */
@@ -176,10 +184,9 @@ class Product extends ActiveRecord
         throw new DomainException('Assignment is not found.');
     }
 
-    /**
-     * @param $id
-     */
-    public function revokeTags($id): void
+
+
+    public function revokeTags(): void
     {
         $this->tagAssignments = [];
     }
