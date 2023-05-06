@@ -8,6 +8,7 @@ use core\entities\Meta;
 use core\entities\project\product\Product;
 use core\entities\project\Tag;
 use core\forms\manage\project\product\CategoriesForm;
+use core\forms\manage\project\product\ModificationForm;
 use core\forms\manage\project\product\PhotosForm;
 use core\forms\manage\project\product\ProductCreateForm;
 use core\forms\manage\project\product\ProductEditForm;
@@ -227,6 +228,40 @@ class ProductManageService
         $product = $this->products->get($id);
         $other   = $this->products->get($otherId);
         $product->revokeRelatedProduct($other->id);
+        $this->products->save($product);
+    }
+
+    /**
+     * @param $id
+     * @param ModificationForm $form
+     */
+    public function addModification($id, ModificationForm $form): void
+    {
+        $product = $this->products->get($id);
+        $product->addModification($form->code, $form->name, $form->price);
+        $this->products->save($product);
+    }
+
+    /**
+     * @param $id
+     * @param $modificationId
+     * @param ModificationForm $form
+     */
+    public function editModification($id, $modificationId, ModificationForm $form): void
+    {
+        $product = $this->products->get($id);
+        $product->editModification($modificationId, $form->code, $form->name, $form->price);
+        $this->products->save($product);
+    }
+
+    /**
+     * @param $id
+     * @param $modificationId
+     */
+    public function removeModification($id, $modificationId): void
+    {
+        $product = $this->products->get($id);
+        $product->removeModification($modificationId);
         $this->products->save($product);
     }
 

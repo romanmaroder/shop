@@ -31,6 +31,7 @@ use yii\web\UploadedFile;
  * @property Category $category
  * @property CategoryAssignment[] $categoryAssignments
  * @property TagAssignment[] $tagAssignments
+ * @property Modification[] $modifications
  * @property Value[] $values
  * @property Photo[] $photos
  * @property RelatedAssignment[] relatedAssignments
@@ -110,11 +111,77 @@ class Product extends ActiveRecord
     {
         $values = $this->values;
         foreach ($values as $val) {
-            if ($values->isForCharacteristic($id)) {
+            if ($val->isForCharacteristic($id)) {
                 return $val;
             }
         }
         return Value::blank($id);
+    }
+
+    /**
+     * @param $id
+     * @return Modification
+     */
+    public function getModification($id): Modification
+    {
+        foreach ($this->modifications as $modification) {
+            if ($modification->isIdEqualTo($id)) {
+                return $modification;
+            }
+        }
+        throw new DomainException('Modification is not found.');
+    }
+
+    /**
+     * @param $code
+     * @param $name
+     * @param $price
+     */
+    public function addModification($code, $name, $price): void
+    {
+        $modifications = $this->modifications;
+        foreach ($modifications as $modification) {
+            if ($modification->isCodeEqualTo($code)) {
+                throw new DomainException('Modification already exist.');
+            }
+        }
+        $modifications[]     = Modification::create($code, $name, $price);
+        $this->modifications = $modifications;
+    }
+
+    /**
+     * @param $id
+     * @param $code
+     * @param $name
+     * @param $price
+     */
+    public function editModification($id, $code, $name, $price): void
+    {
+        $modifications = $this->modifications;
+        foreach ($modifications as $i => $modification) {
+            if ($modification->isIdEqualTo($id)) {
+                $modification->edit($code, $name, $price);
+                $this->modifications = $modifications;
+                return;
+            }
+        }
+        throw new DomainException('Modification is not found.');
+    }
+
+    /**
+     * @param $id
+     */
+    public function removeModification($id): void
+    {
+        $modifications = $this->modifications;
+        foreach ($modifications as $i => $modification) {
+            if ($modification->isIdEqualTo($id)) {
+                unset($modifications[$i]);
+                $this->modifications = $modifications;
+                return;
+            }
+        }
+        throw new DomainException('Modification is not found.');
     }
 
     /**
@@ -183,7 +250,6 @@ class Product extends ActiveRecord
         }
         throw new DomainException('Assignment is not found.');
     }
-
 
 
     public function revokeTags(): void
