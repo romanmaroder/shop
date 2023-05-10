@@ -100,7 +100,6 @@ class ProductManageService
         return $product;
     }
 
-
     public function edit($id, ProductEditForm $form): void
     {
         $product = $this->products->get($id);

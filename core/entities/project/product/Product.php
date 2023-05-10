@@ -34,6 +34,7 @@ use yii\web\UploadedFile;
  * @property Modification[] $modifications
  * @property Value[] $values
  * @property Photo[] $photos
+ * @property Review[] $reviews
  * @property RelatedAssignment[] relatedAssignments
  */
 class Product extends ActiveRecord
@@ -366,6 +367,109 @@ class Product extends ActiveRecord
             }
         }
         throw new DomainException('Assignment is not found.');
+    }
+
+    /**
+     * @param $userId
+     * @param $vote
+     * @param $text
+     */
+    public function addReview($userId, $vote, $text): void
+    {
+        $reviews   = $this->reviews;
+        $reviews[] = Review::create($userId, $vote, $text);
+        $this->updateReviews($reviews);
+    }
+
+    /**
+     * @param $id
+     * @param $vote
+     * @param $text
+     */
+    public function editReview($id, $vote, $text): void
+    {
+        $this->doWithReview(
+            $id,
+            function (Review $review) use ($vote, $text) {
+                $review->edit($vote, $text);
+            }
+        );
+    }
+
+    /**
+     * @param $id
+     */
+    public function activateReview($id): void
+    {
+        $this->doWithReview(
+            $id,
+            function (Review $review) {
+                $review->activate();
+            }
+        );
+    }
+
+    /**
+     * @param $id
+     */
+    public function draftReview($id): void
+    {
+        $this->doWithReview(
+            $id,
+            function (Review $review) {
+                $review->draft();
+            }
+        );
+    }
+
+    /**
+     * @param $id
+     * @param callable $callback
+     */
+    private function doWithReview($id, callable $callback): void
+    {
+        $reviews = $this->reviews;
+        foreach ($reviews as $review) {
+            if ($review->isIdEqualTo($id)) {
+                $callback($review);
+                $this->updateReviews($reviews);
+                return;
+            }
+        }
+    }
+
+    /**
+     * @param $id
+     */
+    public function removeReview($id): void
+    {
+        $reviews = $this->reviews;
+        foreach ($reviews as $i => $review) {
+            if ($review->isIdEqualTo($id)) {
+                unset($reviews[$i]);
+                $this->updateReviews($reviews);
+                return;
+            }
+        }
+        throw new DomainException('Review is not found.');
+    }
+
+    /**
+     * @param array $reviews
+     */
+    private function updateReviews(array $reviews): void
+    {
+        $amount = 0;
+        $total  = 0;
+        foreach ($reviews as $review) {
+            if ($review->isActive()) {
+                $amount++;
+                $total += $review->getRating();
+            }
+        }
+
+        $this->reviews = $reviews;
+        $this->rating  = $amount ? $total / $amount : null;
     }
 
     /**
