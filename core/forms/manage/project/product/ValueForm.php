@@ -12,9 +12,9 @@ use yii\base\Model;
  */
 class ValueForm extends Model
 {
-    public string $value;
+    public $value;
 
-    private Characteristic $_characteristic;
+    private $_characteristic;
 
     public function __construct(Characteristic $characteristic, Value $value = null, $config = [])
     {

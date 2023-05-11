@@ -13,7 +13,7 @@ class TagForm extends Model
     public $name;
     public $slug;
 
-    private Tag $_tag;
+    private $_tag;
 
     /**
      * TagForm constructor.

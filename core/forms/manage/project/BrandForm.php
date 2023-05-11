@@ -14,8 +14,8 @@ use core\validators\SlugValidator;
  */
 class BrandForm extends CompositeForm
 {
-    public $name;
-    public $slug;
+    public  $name;
+    public  $slug;
 
     private $_brand;
 

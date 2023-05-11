@@ -12,14 +12,14 @@ use yii\base\Model;
  */
 class CharacteristicForm extends Model
 {
-    public string $name;
-    public string $type;
-    public string $required;
-    public string $default;
-    public string $textVariants;
+    public $name;
+    public $type;
+    public $required;
+    public $default;
+    public $textVariants;
     public $sort;
 
-    private Characteristic $_characteristic;
+    private $_characteristic;
 
     public function __construct(Characteristic $characteristic, $config = [])
     {

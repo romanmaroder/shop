@@ -22,7 +22,7 @@ class ProductEditForm extends CompositeForm
     public $name;
     public $description;
 
-    private Product $_product;
+    private $_product;
 
     public function __construct(Product $product, $config = [])
     {

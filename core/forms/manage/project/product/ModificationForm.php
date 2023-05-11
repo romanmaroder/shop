@@ -9,9 +9,9 @@ use yii\base\Model;
 
 class ModificationForm extends Model
 {
-    public string $code;
-    public string $name;
-    public int $price;
+    public $code;
+    public $name;
+    public $price;
 
     public function __construct(Modification $modification = null, $config = [])
     {
