@@ -1,6 +1,7 @@
 <?php
 
 /** @var $user */
+
 /** @var $assetDir */
 
 use hail812\adminlte\widgets\Menu;
@@ -12,7 +13,7 @@ use yii\helpers\Url;
     <a href="<?= Url::home(); ?>" class="brand-link">
         <img src="<?= $assetDir ?>/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
              style="opacity: .8">
-        <span class="brand-text font-weight-light"><?= Yii::$app->name;?></span>
+        <span class="brand-text font-weight-light"><?= Yii::$app->name; ?></span>
     </a>
 
     <!-- Sidebar -->
@@ -47,7 +48,23 @@ use yii\helpers\Url;
                 [
                     'items' => [
                         ['label' => 'Management', 'options' => ['class' => 'header']],
-                        ['label' => 'Users', 'icon' => 'user', 'url' => ['/user/index'], 'active' => $this->context->id == 'user/index'],
+                        [
+                            'label' => 'Shop',
+                            'icon'  => 'folder',
+                            'items' => [
+                                ['label'  => 'Brands',
+                                 'icon'   => 'file-o',
+                                 'url'    => ['/shop/brand/index'],
+                                 'active' => $this->context->id == 'shop/brand'
+                                ],
+                            ]
+                        ],
+                        [
+                            'label'  => 'Users',
+                            'icon'   => 'user',
+                            'url'    => ['/user/index'],
+                            'active' => $this->context->id == 'user/index'
+                        ],
                         [
                             'label' => 'Starter Pages',
                             'icon'  => 'tachometer-alt',
