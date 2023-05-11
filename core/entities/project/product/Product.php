@@ -252,7 +252,6 @@ class Product extends ActiveRecord
         throw new DomainException('Assignment is not found.');
     }
 
-
     public function revokeTags(): void
     {
         $this->tagAssignments = [];
@@ -507,6 +506,14 @@ class Product extends ActiveRecord
     /**
      * @return ActiveQuery
      */
+    public function getModifications(): ActiveQuery
+    {
+        return $this->hasMany(Modification::class, ['product_id' => 'id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
     public function getValues(): ActiveQuery
     {
         return $this->hasMany(Value::class, ['product_id' => 'id']);
@@ -518,6 +525,22 @@ class Product extends ActiveRecord
     public function getPhotos(): ActiveQuery
     {
         return $this->hasMany(Photo::class, ['product_id' => 'id'])->orderBy('sort');
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getRelatedAssignments(): ActiveQuery
+    {
+        return $this->hasMany(RelatedAssignment::class, ['product_id' => 'id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getReviews(): ActiveQuery
+    {
+        return $this->hasMany(Review::class, ['product_id' => 'id']);
     }
 
     /**
@@ -535,7 +558,15 @@ class Product extends ActiveRecord
             MetaBehavior::class,
             [
                 'class'     => SaveRelationsBehavior::class,
-                'relations' => ['categoryAssignments', 'tagAssignments', 'values', 'photos'],
+                'relations' => [
+                    'categoryAssignments',
+                    'tagAssignments',
+                    'relatedAssignment',
+                    'modifications',
+                    'values',
+                    'photos',
+                    'reviews'
+                ],
             ]
         ];
     }
