@@ -10,7 +10,7 @@ class m230417_143710_create_tags_table extends Migration
     /**
      * {@inheritdoc}
      */
-    public function Up()
+    public function up()
     {
         $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         $this->createTable('{{%project_tags}}', [

@@ -17,7 +17,6 @@ class m230503_143019_create_core_related_assignments_table extends Migration
         $this->createTable(
             '{{%core_related_assignments}}',
             [
-                'id' => $this->primaryKey(),
                 'product_id' => $this->integer()->notNull(),
                 'related_id' => $this->integer()->notNull(),
             ],

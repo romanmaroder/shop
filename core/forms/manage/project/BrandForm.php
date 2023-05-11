@@ -14,10 +14,10 @@ use core\validators\SlugValidator;
  */
 class BrandForm extends CompositeForm
 {
-    public string $name;
-    public string $slug;
+    public $name;
+    public $slug;
 
-    private Brand $_brand;
+    private $_brand;
 
     public function __construct(Brand $brand = null, $config = [])
     {
@@ -26,6 +26,8 @@ class BrandForm extends CompositeForm
             $this->slug   = $brand->slug;
             $this->meta   = new MetaForm($brand->meta);
             $this->_brand = $brand;
+        } else {
+            $this->meta = new MetaForm();
         }
         parent::__construct($config);
     }

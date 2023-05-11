@@ -16,7 +16,7 @@ use yii\db\ActiveRecord;
  */
 class Brand extends ActiveRecord
 {
-    public Meta $meta;
+    public $meta;
 
     /**
      * @param $name

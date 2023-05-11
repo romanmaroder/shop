@@ -86,11 +86,8 @@ abstract class CompositeForm extends Model
         }
     }
 
-    /**
-     * @param string $name
-     * @return bool
-     */
-    public function __isset(string $name): bool
+
+    public function __isset($name)
     {
         return isset($this->forms[$name]) || parent::__isset($name);
     }

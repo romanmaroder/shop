@@ -17,7 +17,6 @@ class m230502_122347_create_core_values_table extends Migration
         $this->createTable(
             '{{%core_values}}',
             [
-                'id'                => $this->primaryKey(),
                 'product_id'        => $this->integer()->notNull(),
                 'characteristic_id' => $this->integer()->notNull(),
                 'values'            => $this->string(),
@@ -43,7 +42,7 @@ class m230502_122347_create_core_values_table extends Migration
             '{{%fk-core_values-characteristic_id}}',
             '{{%core_values}}',
             'characteristic_id',
-            '{{%core_characteristic}}',
+            '{{%core_characteristics}}',
             'id',
             'CASCADE',
             'RESTRICT'

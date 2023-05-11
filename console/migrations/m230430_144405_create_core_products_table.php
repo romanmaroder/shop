@@ -28,7 +28,6 @@ class m230430_144405_create_core_products_table extends Migration
                 'price_new'     => $this->integer(),
                 'rating'        => $this->decimal(3, 2),
                 'meta_json'     => $this->text(),
-                'main_photo_id' => $this->integer(),
                 'status'        => $this->smallInteger()->defaultValue(1)->notNull(),
             ],
             $tableOptions
@@ -37,7 +36,6 @@ class m230430_144405_create_core_products_table extends Migration
         $this->createIndex('{{%idx-core_products-code}}', '{{%core_products}}', 'code', true);
         $this->createIndex('{{%idx-core_products-category_id}}', '{{%core_products}}', 'category_id');
         $this->createIndex('{{%idx-core_products-brand_id}}', '{{%core_products}}', 'brand_id');
-        $this->createIndex('{{%idx-core_products-main_photo_id}}', '{{%core_products}}', 'main_photo_id');
 
         $this->addForeignKey(
             '{{%fk-core_products-category_id}}',
@@ -50,18 +48,10 @@ class m230430_144405_create_core_products_table extends Migration
             '{{%fk-core_products-brand_id}}',
             '{{%core_products}}',
             'brand_id',
-            '{{%core_categories}}',
+            '{{%core_brands}}',
             'id'
         );
-        $this->addForeignKey(
-            '{{%fk-core_products-main_photo_id}}',
-            '{{%core_products}}',
-            'main_photo_id',
-            '{{%core_photos}}',
-            'id',
-            'SET NULL',
-            'RESTRICT'
-        );
+
     }
 
     /**
@@ -71,12 +61,10 @@ class m230430_144405_create_core_products_table extends Migration
     {
         $this->dropForeignKey('{{%fk-core_products-category_id}}', '{{%core_products}}');
         $this->dropForeignKey('{{%fk-core_products-brand_id}}', '{{%core_products}}');
-        $this->dropForeignKey('{{%fk-core_products-main_photo_id}}', '{{%core_products}}');
 
         $this->dropIndex('{{%idx-core_products-code}}', '{{%core_products}}');
         $this->dropIndex('{{%idx-core_products-category_id}}', '{{%core_products}}');
         $this->dropIndex('{{%idx-core_products-brand_id}}', '{{%core_products}}');
-        $this->dropIndex('{{%idx-core_products-main_photo_id}}', '{{%core_products}}');
 
         $this->dropTable('{{%core_products}}');
     }
