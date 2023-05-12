@@ -32,6 +32,14 @@ class ProductRepository
     }
 
     /**
+     * @param $id
+     * @return bool
+     */
+    public function existsByMainCategory($id):bool
+    {
+        return Product::find()->andWhere(['category_id'=>$id])->exists();
+    }
+    /**
      * @param Product $product
      */
     public function save(Product $product): void

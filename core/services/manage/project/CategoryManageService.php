@@ -8,15 +8,18 @@ use core\entities\Meta;
 use core\entities\project\Category;
 use core\forms\manage\project\CategoryForm;
 use core\repositories\project\CategoryRepository;
+use core\repositories\project\ProductRepository;
 use DomainException;
 
 class CategoryManageService
 {
     private CategoryRepository $categories;
+    private ProductRepository $products;
 
-    public function __construct(CategoryRepository $categories)
+    public function __construct(CategoryRepository $categories, ProductRepository $products)
     {
         $this->categories = $categories;
+        $this->products   = $products;
     }
 
     /**
@@ -77,6 +80,9 @@ class CategoryManageService
     {
         $category = $this->categories->get($id);
         $this->assertIsNotRoot($category);
+        if ($this->products->existsByMainCategory($category->id)) {
+            throw new DomainException('Unable to remove category with products.');
+        }
         $this->categories->remove($category);
     }
 
