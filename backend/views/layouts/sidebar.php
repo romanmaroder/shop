@@ -58,10 +58,16 @@ use yii\helpers\Url;
                                     'url'    => ['/shop/brand/index'],
                                     'active' => $this->context->id == 'shop/brand'
                                 ],
-                                ['label'  => 'Tags',
+                                [
+                                    'label'  => 'Tags',
+                                    'icon'   => 'file-o',
+                                    'url'    => ['/shop/tag/index'],
+                                    'active' => $this->context->id == 'shop/tag'
+                                ],
+                                ['label'  => 'Categories',
                                  'icon'   => 'file-o',
-                                 'url'    => ['/shop/tag/index'],
-                                 'active' => $this->context->id == 'shop/tag'
+                                 'url'    => ['/shop/category/index'],
+                                 'active' => $this->context->id == 'shop/category'
                                 ],
                             ]
                         ],
