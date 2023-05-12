@@ -1,6 +1,6 @@
 <?php
 
-use core\entities\project\Brand;
+use core\entities\project\Category;
 
 use yii\grid\ActionColumn;
 use yii\helpers\Html;
@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             [
             'attribute' => 'name',
-            'value' => function (Brand $model) {
+            'value' => function (Category $model) {
             return Html::a(Html::encode($model->name), ['view', 'id' => $model->id]);
             },
             'format' => 'raw',

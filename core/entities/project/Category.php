@@ -27,7 +27,7 @@ use yii\db\ActiveRecord;
  */
 class Category extends ActiveRecord
 {
-    public Meta $meta;
+    public $meta;
 
     /**
      * @param $name

@@ -6,9 +6,9 @@ namespace core\entities;
 
 class Meta
 {
-    public string $title;
-    public string $description;
-    public string $keywords;
+    public  $title;
+    public  $description;
+    public  $keywords;
 
     /**
      * Meta constructor.
