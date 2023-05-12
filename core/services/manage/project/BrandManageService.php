@@ -8,14 +8,18 @@ use core\entities\Meta;
 use core\entities\project\Brand;
 use core\forms\manage\project\BrandForm;
 use core\repositories\project\BrandRepository;
+use core\repositories\project\ProductRepository;
+use DomainException;
 
 class BrandManageService
 {
     private BrandRepository $brands;
+    private ProductRepository $products;
 
-    public function __construct(BrandRepository $brands)
+    public function __construct(BrandRepository $brands, ProductRepository $products)
     {
-        $this->brands = $brands;
+        $this->brands   = $brands;
+        $this->products = $products;
     }
 
     /**
@@ -57,6 +61,9 @@ class BrandManageService
     public function remove($id): void
     {
         $brand = $this->brands->get($id);
+        if ($this->products->existsByBrand($brand->id)) {
+            throw new DomainException('Unable to remove brand with products.');
+        }
         $this->brands->remove($brand);
     }
 }

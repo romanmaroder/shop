@@ -23,6 +23,15 @@ class ProductRepository
     }
 
     /**
+     * @param $id
+     * @return bool
+     */
+    public function existsByBrand($id): bool
+    {
+        return Product::find()->andWhere(['brand_id' => $id])->exists();
+    }
+
+    /**
      * @param Product $product
      */
     public function save(Product $product): void

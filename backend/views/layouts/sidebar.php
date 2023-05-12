@@ -52,13 +52,20 @@ use yii\helpers\Url;
                             'label' => 'Shop',
                             'icon'  => 'folder',
                             'items' => [
-                                ['label'  => 'Brands',
+                                [
+                                    'label'  => 'Brands',
+                                    'icon'   => 'file-o',
+                                    'url'    => ['/shop/brand/index'],
+                                    'active' => $this->context->id == 'shop/brand'
+                                ],
+                                ['label'  => 'Tags',
                                  'icon'   => 'file-o',
-                                 'url'    => ['/shop/brand/index'],
-                                 'active' => $this->context->id == 'shop/brand'
+                                 'url'    => ['/shop/tag/index'],
+                                 'active' => $this->context->id == 'shop/tag'
                                 ],
                             ]
                         ],
+
                         [
                             'label'  => 'Users',
                             'icon'   => 'user',
