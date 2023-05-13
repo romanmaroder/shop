@@ -75,12 +75,13 @@ class Product extends ActiveRecord
         $this->price_old = $old;
     }
 
-    public function edit($brandId, $code, $name, Meta $meta): void
+    public function edit($brandId, $code, $name, $description, Meta $meta): void
     {
-        $this->brand_id = $brandId;
-        $this->code     = $code;
-        $this->name     = $name;
-        $this->meta     = $meta;
+        $this->brand_id    = $brandId;
+        $this->code        = $code;
+        $this->name        = $name;
+        $this->description = $description;
+        $this->meta        = $meta;
     }
 
     /**
@@ -590,7 +591,7 @@ class Product extends ActiveRecord
      * @param bool $insert
      * @param array $changedAttributes
      */
-    public function afterSave( $insert, $changedAttributes): void
+    public function afterSave($insert, $changedAttributes): void
     {
         $related = $this->getRelatedRecords();
         if (array_key_exists('mainPhoto', $related)) {

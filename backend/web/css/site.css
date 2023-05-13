@@ -68,7 +68,7 @@ a.desc:after {
     color: #DC3545;
 }
 
-div.required label.control-label:after {
+div.required label:after {
     content: " *";
     color: red;
 }
