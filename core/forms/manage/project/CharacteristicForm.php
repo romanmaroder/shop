@@ -5,6 +5,7 @@ namespace core\forms\manage\project;
 
 
 use core\entities\project\Characteristic;
+use core\helpers\CharacteristicHelper;
 use yii\base\Model;
 
 /**
@@ -21,7 +22,7 @@ class CharacteristicForm extends Model
 
     private $_characteristic;
 
-    public function __construct(Characteristic $characteristic, $config = [])
+    public function __construct(Characteristic $characteristic = null, $config = [])
     {
         if ($characteristic) {
             $this->name            = $characteristic->name;
@@ -55,6 +56,14 @@ class CharacteristicForm extends Model
                 'filter'      => $this->_characteristic ? ['<>', 'id', $this->_characteristic->id] : null
             ],
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function typesList(): array
+    {
+        return CharacteristicHelper::typeList();
     }
 
     /**

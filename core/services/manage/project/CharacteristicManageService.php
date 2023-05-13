@@ -53,7 +53,6 @@ class CharacteristicManageService
     /**
      * @param $id
      * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
      */
     public function remove($id): void
     {
