@@ -47,7 +47,11 @@ class CategorySearch extends Model
             $query->where('0=1');
             return $dataProvider;
         }
-
+        $query->andFilterWhere(
+            [
+                'id' => $this->id,
+            ]
+        );
         $query
             ->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'slug', $this->slug])
