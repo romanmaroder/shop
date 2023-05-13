@@ -2,7 +2,8 @@
 
 
 use yii\helpers\Html;
-use yii\bootstrap5\ActiveForm;
+//use yii\bootstrap5\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model core\forms\manage\project\CategoryForm */
@@ -25,7 +26,7 @@ use yii\bootstrap5\ActiveForm;
             </div>
         </div>
         <div class='card-body'>
-            <?= $form->field($model, 'parentId')->dropDownList($model->parentCategoriesList(),['class'=>'form-control']) ?>
+            <?= $form->field($model, 'parentId')->dropDownList($model->parentCategoriesList()) ?>
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>

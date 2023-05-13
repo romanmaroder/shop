@@ -4,6 +4,7 @@
 
 /* @var $content string */
 
+use backend\assets\AppAsset;
 use hail812\adminlte3\assets\AdminLteAsset;
 use hail812\adminlte3\assets\FontAwesomeAsset;
 use yii\helpers\Html;
@@ -12,7 +13,7 @@ use yii\web\View;
 /*Identity User*/
 $user = Yii::$app->user->identity;
 
-
+AppAsset::register($this);
 FontAwesomeAsset::register($this);
 AdminLteAsset::register($this);
 //$this->registerCssFile('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback');
