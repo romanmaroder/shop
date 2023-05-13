@@ -14,6 +14,7 @@ use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 class CategoryController extends Controller
 {
@@ -122,6 +123,7 @@ class CategoryController extends Controller
             ]
         );
     }
+
     /**
      * @param integer $id
      * @return mixed
@@ -134,6 +136,26 @@ class CategoryController extends Controller
             Yii::$app->errorHandler->logException($e);
             Yii::$app->session->setFlash('error', $e->getMessage());
         }
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * @param $id
+     * @return Response
+     */
+    public function actionMoveUp($id): Response
+    {
+        $this->service->moveUp($id);
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * @param $id
+     * @return Response
+     */
+    public function actionMoveDown($id): Response
+    {
+        $this->service->moveDown($id);
         return $this->redirect(['index']);
     }
 

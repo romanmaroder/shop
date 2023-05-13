@@ -29,9 +29,20 @@ $this->params['breadcrumbs'][] = $this->title;
             [
             'attribute' => 'name',
             'value' => function (Category $model) {
-            return Html::a(Html::encode($model->name), ['view', 'id' => $model->id]);
+            $indent = ($model->depth > 1 ? str_repeat('&nbsp;&nbsp;', $model->depth - 1) . ' ' : '');
+            return $indent . Html::a(Html::encode($model->name), ['view', 'id' => $model->id]);
             },
             'format' => 'raw',
+            ],
+            [
+                    'value'=>function(Category $model){
+                    return
+                    Html::a('<i class="fas fa-arrow-up"></i>',['move-up','id'=>$model->id])
+            .
+                    Html::a('<i class="fas fa-arrow-down"></i>',['move-down','id'=>$model->id]);
+            },
+            'format'=>'raw',
+            'contentOptions'=>['style'=>'text-align:center'],
             ],
             'slug',
             ['class' => ActionColumn::class],
