@@ -104,6 +104,7 @@ class ProductManageService
     {
         $product = $this->products->get($id);
         $brand   = $this->brands->get($form->brandId);
+        $category = $this->categories->get($form->categories->main);
 
         $product->edit(
             $brand->id,
@@ -116,6 +117,14 @@ class ProductManageService
                 $form->meta->keywords,
             )
         );
+
+        $product->changeMainCategory($category->id);
+        $product->revokeCategories();
+
+        foreach ($form->categories->others as $otherId) {
+            $category=$this->categories->get($otherId);
+            $product->assignCategory($category->id);
+        }
 
         foreach ($form->values as $value) {
             $product->setValue($value->id, $value->value);
@@ -143,10 +152,11 @@ class ProductManageService
     }
 
     /**
+     * If you want to display a form in a modal window
      * @param $id
      * @param CategoriesForm $form
      */
-    public function changeCategories($id, CategoriesForm $form): void
+    /*public function changeCategories($id, CategoriesForm $form): void
     {
         $product  = $this->products->get($id);
         $category = $this->categories->get($form->main);
@@ -159,7 +169,7 @@ class ProductManageService
         }
 
         $this->products->save($product);
-    }
+    }*/
 
     /**
      * @param $id
