@@ -13,6 +13,10 @@ return [
     'id'                  => 'app-frontend',
     'basePath'            => dirname(__DIR__),
     'bootstrap'           => ['log'],
+    'aliases'             => [
+        '@staticRoot' => $params['staticPath'],
+        '@static'     => $params['staticHostInfo'],
+    ],
     'controllerNamespace' => 'frontend\controllers',
     'components'          => [
         'request'      => [
@@ -23,7 +27,7 @@ return [
         'user'         => [
             'identityClass'   => 'core\entities\user\User',
             'enableAutoLogin' => true,
-            'loginUrl' => ['auth/auth/login'],
+            'loginUrl'        => ['auth/auth/login'],
             'identityCookie'  => [
                 'name'     => '_identity',
                 'httpOnly' => true,

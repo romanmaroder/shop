@@ -11,5 +11,7 @@ return [
     'cookieDomain'                  => 'example.com',
     'frontendHostInfo'              => 'http://example.com',
     'backendHostInfo'               => 'http://example/admin.com',
+    'staticHostInfo'                => 'http://static-example.com',
+    'staticPath'                    => dirname(__DIR__, 2) . '/static',
     'bsVersion'                     => '5.x' // will enable Bootstrap 5.x globally
 ];

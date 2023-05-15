@@ -13,6 +13,11 @@ return [
     'id'                  => 'app-backend',
     'name'                => 'ADMIN PANEL',
     'basePath'            => dirname(__DIR__),
+    'aliases'             => [
+
+        '@staticRoot' => $params['staticPath'],
+        '@static'     => $params['staticHostInfo'],
+    ],
     'controllerNamespace' => 'backend\controllers',
     'bootstrap'           => ['log'],
     'modules'             => [],
@@ -25,7 +30,7 @@ return [
         'user'         => [
             'identityClass'   => 'core\entities\user\User',
             'enableAutoLogin' => true,
-            'loginUrl' => ['auth/login'],
+            'loginUrl'        => ['auth/login'],
             'identityCookie'  => [
                 'name'     => '_identity',
                 'httpOnly' => true,
