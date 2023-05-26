@@ -8,6 +8,7 @@ use core\entities\behaviors\MetaBehavior;
 use core\entities\Meta;
 use core\entities\project\Brand;
 use core\entities\project\Category;
+use core\entities\project\Tag;
 use DomainException;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\db\ActiveQuery;
@@ -31,10 +32,13 @@ use yii\web\UploadedFile;
  * @property Brand $brand
  * @property Category $category
  * @property CategoryAssignment[] $categoryAssignments
+ * @property Category[] $categories
  * @property TagAssignment[] $tagAssignments
+ * @property Tag[] $tags
  * @property Modification[] $modifications
  * @property Value[] $values
  * @property Photo[] $photos
+ * @property Photo $mainPhoto
  * @property Review[] $reviews
  * @property RelatedAssignment[] relatedAssignments
  */
@@ -285,7 +289,6 @@ class Product extends ActiveRecord
         throw new DomainException('Photo is not found.');
     }
 
-
     public function removePhotos(): void
     {
         $this->updatePhotos([]);
@@ -499,11 +502,26 @@ class Product extends ActiveRecord
     /**
      * @return ActiveQuery
      */
+    public function getCategories(): ActiveQuery
+    {
+        return $this->hasMany(Category::class, ['id'=>'category_id'])->via('categoryAssignments');
+    }
+
+    /**
+     * @return ActiveQuery
+     */
     public function getTagAssignments(): ActiveQuery
     {
         return $this->hasMany(TagAssignment::class, ['product_id' => 'id']);
     }
 
+    /**
+     * @return ActiveQuery
+     */
+    public function getTags(): ActiveQuery
+    {
+        return $this->hasMany(Tag::class, ['id'=>'tag_id'])->via('tagAssignments');
+    }
     /**
      * @return ActiveQuery
      */
@@ -547,6 +565,14 @@ class Product extends ActiveRecord
     /**
      * @return ActiveQuery
      */
+    public function getRelateds(): ActiveQuery
+    {
+        return $this->hasMany(Product::class, ['id' => 'related_id'])->via('relatedAssignments');
+    }
+
+    /**
+     * @return ActiveQuery
+     */
     public function getReviews(): ActiveQuery
     {
         return $this->hasMany(Review::class, ['product_id' => 'id']);
@@ -560,7 +586,6 @@ class Product extends ActiveRecord
         return '{{%core_products}}';
     }
 
-
     public function behaviors(): array
     {
         return [
@@ -570,7 +595,7 @@ class Product extends ActiveRecord
                 'relations' => [
                     'categoryAssignments',
                     'tagAssignments',
-                    'relatedAssignment',
+                    'relatedAssignments',
                     'modifications',
                     'values',
                     'photos',
@@ -587,10 +612,18 @@ class Product extends ActiveRecord
         ];
     }
 
-    /**
-     * @param bool $insert
-     * @param array $changedAttributes
-     */
+    public function beforeDelete(): bool
+    {
+        if (parent::beforeDelete()){
+            foreach ($this->photos as $photo) {
+                $photo->delete();
+            }
+            return true;
+        }
+        return false;
+    }
+
+
     public function afterSave($insert, $changedAttributes): void
     {
         $related = $this->getRelatedRecords();

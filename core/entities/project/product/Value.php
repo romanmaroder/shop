@@ -4,19 +4,18 @@
 namespace core\entities\project\product;
 
 
+use core\entities\project\Characteristic;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
  * @property integer $characteristic_id
  * @property string $value
+ * @property Characteristic $characteristic
  */
 class Value extends ActiveRecord
 {
-    /**
-     * @param $characteristicId
-     * @param $value
-     * @return static
-     */
+
     public static function create($characteristicId, $value): self
     {
         $object                    = new static();
@@ -51,6 +50,14 @@ class Value extends ActiveRecord
     public function isForCharacteristic($id): bool
     {
         return $this->characteristic_id == $id;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getCharacteristic(): ActiveQuery
+    {
+        return $this->hasOne(Characteristic::class, ['id' => 'characteristic_id']);
     }
 
     /**

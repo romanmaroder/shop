@@ -19,7 +19,7 @@ class m230502_122347_create_core_values_table extends Migration
             [
                 'product_id'        => $this->integer()->notNull(),
                 'characteristic_id' => $this->integer()->notNull(),
-                'values'            => $this->string(),
+                'value'            => $this->string(),
             ],
             $tableOptions
         );

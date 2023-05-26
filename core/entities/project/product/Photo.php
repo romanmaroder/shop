@@ -6,7 +6,8 @@ namespace core\entities\project\product;
 
 use yii\db\ActiveRecord;
 use yii\web\UploadedFile;
-use yiidreamteam\upload\ImageUploadBehavior;
+use romanmaroder\upload\ImageUploadBehavior;
+
 
 /**
  * @property integer id
@@ -18,10 +19,6 @@ use yiidreamteam\upload\ImageUploadBehavior;
 class Photo extends ActiveRecord
 {
 
-    /**
-     * @param UploadedFile $file
-     * @return static
-     */
     public static function create(UploadedFile $file): self
     {
         $photo       = new static();
@@ -69,10 +66,10 @@ class Photo extends ActiveRecord
                 'thumbPath'             => '@staticRoot/cache/products/[[attribute_product_id]]/[[profile]]_[[id]].[[extension]]',
                 'thumbUrl'              => '@static/cache/products/[[attribute_product_id]]/[[profile]]_[[id]].[[extension]]',
                 'thumbs'                => [
-                    'admin' => ['width' => 100, 'height' => 70],
                     'thumb' => ['width' => 640, 'height' => 480],
+                    'admin' => ['width' => 100, 'height' => 70],
                 ],
-            ]
+            ],
         ];
     }
 }

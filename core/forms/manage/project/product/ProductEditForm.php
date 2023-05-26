@@ -4,10 +4,12 @@
 namespace core\forms\manage\project\product;
 
 
+use core\entities\project\Brand;
 use core\entities\project\Characteristic;
 use core\entities\project\product\Product;
 use core\forms\CompositeForm;
 use core\forms\manage\MetaForm;
+use yii\helpers\ArrayHelper;
 
 /**
  * @property MetaForm $meta
@@ -49,9 +51,9 @@ class ProductEditForm extends CompositeForm
     public function rules(): array
     {
         return [
-            [['brandId', 'code', 'name', 'description'], 'required'],
+            [['brandId', 'code', 'name'], 'required'],
             [['brandId'], 'integer'],
-            [['code', 'name'], 'string', 'ma[' => 255],
+            [['code', 'name'], 'string', 'max' => 255],
             [
                 ['code'],
                 'unique',
@@ -59,7 +61,16 @@ class ProductEditForm extends CompositeForm
                 'filter'      => $this->_product ? ['<>', 'id', $this->_product->id] : null
             ],
             ['description','string'],
+
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function brandsList():array
+    {
+        return ArrayHelper::map(Brand::find()->orderBy('name')->asArray()->all(), 'id', 'name');
     }
 
     /**
@@ -67,6 +78,6 @@ class ProductEditForm extends CompositeForm
      */
     protected function internalForms(): array
     {
-        return ['meta', 'tags', 'values'];
+        return ['meta', 'categories','tags', 'values'];
     }
 }

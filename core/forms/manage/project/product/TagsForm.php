@@ -5,6 +5,7 @@ namespace core\forms\manage\project\product;
 
 
 use core\entities\project\product\Product;
+use core\entities\project\Tag;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 
@@ -19,7 +20,7 @@ class TagsForm extends Model
     public function __construct(Product $product = null, $config = [])
     {
         if ($product) {
-            $this->existing = ArrayHelper::getColumn($product->tagAssigments, 'tag_id');
+            $this->existing = ArrayHelper::getColumn($product->tagAssignments, 'tag_id');
         }
         parent::__construct($config);
     }
@@ -34,6 +35,11 @@ class TagsForm extends Model
             ['existing', 'default', 'value' => []],
             ['textNew', 'string'],
         ];
+    }
+
+    public function tagsList(): array
+    {
+        return ArrayHelper::map(Tag::find()->orderBy('name')->asArray()->all(), 'id', 'name');
     }
 
     public function getNewNames(): array

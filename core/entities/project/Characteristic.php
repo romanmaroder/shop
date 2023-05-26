@@ -36,6 +36,7 @@ class Characteristic extends ActiveRecord
     public static function create($name, $type, $required, $default, array $variants, $sort): self
     {
         $object           = new static();
+        $object->name     = $name;
         $object->type     = $type;
         $object->required = $required;
         $object->default  = $default;
@@ -104,7 +105,7 @@ class Characteristic extends ActiveRecord
 
     public function afterFind(): void
     {
-        $this->variants = Json::decode($this->getAttribute('variants_json'));
+        $this->variants = array_filter(Json::decode($this->getAttribute('variants_json')));
         parent::afterFind();
     }
 
@@ -114,7 +115,7 @@ class Characteristic extends ActiveRecord
      */
     public function beforeSave($insert): bool
     {
-        $this->setAttribute('variants_json', Json::encode($this->variants));
+        $this->setAttribute('variants_json', Json::encode(array_filter($this->variants)));
         return parent::beforeSave($insert);
     }
 }

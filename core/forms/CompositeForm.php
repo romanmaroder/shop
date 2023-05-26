@@ -61,10 +61,9 @@ abstract class CompositeForm extends Model
 
     /**
      * @param string $name
-     * @return Model
      * @throws \yii\base\UnknownPropertyException
      */
-    public function __get($name): Model
+    public function __get($name)
     {
         if (isset($this->forms[$name])) {
             return $this->forms[$name];

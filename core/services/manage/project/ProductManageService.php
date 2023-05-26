@@ -10,6 +10,7 @@ use core\entities\project\Tag;
 use core\forms\manage\project\product\CategoriesForm;
 use core\forms\manage\project\product\ModificationForm;
 use core\forms\manage\project\product\PhotosForm;
+use core\forms\manage\project\product\PriceForm;
 use core\forms\manage\project\product\ProductCreateForm;
 use core\forms\manage\project\product\ProductEditForm;
 use core\repositories\project\BrandRepository;
@@ -96,14 +97,13 @@ class ProductManageService
             }
         );
 
-        $this->products->save($product);
         return $product;
     }
 
     public function edit($id, ProductEditForm $form): void
     {
-        $product = $this->products->get($id);
-        $brand   = $this->brands->get($form->brandId);
+        $product  = $this->products->get($id);
+        $brand    = $this->brands->get($form->brandId);
         $category = $this->categories->get($form->categories->main);
 
         $product->edit(
@@ -122,7 +122,7 @@ class ProductManageService
         $product->revokeCategories();
 
         foreach ($form->categories->others as $otherId) {
-            $category=$this->categories->get($otherId);
+            $category = $this->categories->get($otherId);
             $product->assignCategory($category->id);
         }
 
@@ -149,6 +149,17 @@ class ProductManageService
                 $this->products->save($product);
             }
         );
+    }
+
+    /**
+     * @param $id
+     * @param PriceForm $form
+     */
+    public function changePrice($id, PriceForm $form): void
+    {
+        $product = $this->products->get($id);
+        $product->setPrice($form->new, $form->old);
+        $this->products->save($product);
     }
 
     /**
@@ -285,4 +296,6 @@ class ProductManageService
         $product = $this->products->get($id);
         $this->products->remove($product);
     }
+
+
 }

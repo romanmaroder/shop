@@ -24,7 +24,7 @@ use yii\helpers\Url;
                 <img src="<?= $assetDir ?>/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block"> <?= $user->username; ?></a>
+                <a href="<?= Url::to(['user/view', 'id' => $user->id]);?>" class="d-block"> <?= $user->username; ?></a>
             </div>
         </div>
 
@@ -52,6 +52,11 @@ use yii\helpers\Url;
                             'label' => 'Shop',
                             'icon'  => 'folder',
                             'items' => [
+                                ['label'  => 'Products',
+                                 'icon'   => 'file-o',
+                                 'url'    => ['/shop/product/index'],
+                                 'active' => $this->context->id == 'shop/product'
+                                ],
                                 [
                                     'label'  => 'Brands',
                                     'icon'   => 'file-o',
@@ -70,10 +75,11 @@ use yii\helpers\Url;
                                     'url'    => ['/shop/category/index'],
                                     'active' => $this->context->id == 'shop/category'
                                 ],
-                                ['label'  => 'Characteristics',
-                                 'icon'   => 'file-o',
-                                 'url'    => ['/shop/characteristic/index'],
-                                 'active' => $this->context->id == 'shop/characteristic'
+                                [
+                                    'label'  => 'Characteristics',
+                                    'icon'   => 'file-o',
+                                    'url'    => ['/shop/characteristic/index'],
+                                    'active' => $this->context->id == 'shop/characteristic'
                                 ],
                             ]
                         ],
