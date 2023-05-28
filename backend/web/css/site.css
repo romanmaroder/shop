@@ -73,6 +73,13 @@ div.required label:after {
     color: red;
 }
 
+.photo-thumb > .thumbnail img {
+    width: 100%;
+    min-width: 50px;
+    max-width: 200px;
+    height: auto;
+}
+
 /* align the logout "link" (button in form) of the navbar */
 .nav li > form > button.logout {
     padding-top: 7px;

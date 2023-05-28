@@ -9,7 +9,7 @@ use yii\grid\GridView;
 /* @var $searchModel backend\forms\Shop\ProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Products';
+$this->title                   = 'Products';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">

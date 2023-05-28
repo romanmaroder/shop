@@ -13,5 +13,5 @@ return [
     'backendHostInfo'               => 'http://example/admin.com',
     'staticHostInfo'                => 'http://static-example.com',
     'staticPath'                    => dirname(__DIR__, 2) . '/static',
-    'bsVersion'                     => '5.x' // will enable Bootstrap 5.x globally
+    'bsVersion'                     => '4.x' // will enable Bootstrap 4.x globally
 ];

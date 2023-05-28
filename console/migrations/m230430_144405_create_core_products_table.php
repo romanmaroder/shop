@@ -24,7 +24,7 @@ class m230430_144405_create_core_products_table extends Migration
                 'code'          => $this->string()->notNull(),
                 'name'          => $this->string()->notNull(),
                 'description'   => $this->text(),
-                'price_old'     => $this->integer(),
+                'price_old'     => $this->integer()->notNull()->defaultValue(0),
                 'price_new'     => $this->integer(),
                 'rating'        => $this->decimal(3, 2),
                 'meta_json'     => $this->text(),

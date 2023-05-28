@@ -8,10 +8,14 @@ use NumberFormatter;
 
 class PriceHelper
 {
+    /**
+     * @param $price
+     * @return string
+     */
     public static function format($price): string
     {
-        //$fmt = new NumberFormatter('ru_RU', NumberFormatter::CURRENCY);
-         //return $fmt->formatCurrency($price, 'RUR') . "\n";
-        return number_format($price, 0, '.', ' ');
+        $fmt = new NumberFormatter('ru_RU', NumberFormatter::CURRENCY);
+        return $fmt->formatCurrency($price, 'RUR') . "\n";
+        //return number_format($price, 0, '.', ' ');
     }
 }

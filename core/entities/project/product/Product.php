@@ -302,7 +302,7 @@ class Product extends ActiveRecord
         $photos = $this->photos;
         foreach ($photos as $i => $photo) {
             if ($photo->isIdEqualTo($id)) {
-                if ($prev = $photo[$i - 1] ?? null) {
+                if ($prev = $photos[$i - 1] ?? null) {
                     $photos[$i - 1] = $photo;
                     $photos[$i]     = $prev;
                     $this->updatePhotos($photos);
@@ -321,7 +321,7 @@ class Product extends ActiveRecord
         $photos = $this->photos;
         foreach ($photos as $i => $photo) {
             if ($photo->isIdEqualTo($id)) {
-                if ($next = $photo[$i + 1] ?? null) {
+                if ($next = $photos[$i + 1] ?? null) {
                     $photos[$i]     = $next;
                     $photos[$i + 1] = $photo;
                     $this->updatePhotos($photos);

@@ -39,9 +39,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
         <div class="col-md-6">
-            <div class="invoice p-3 mb-3">
-                <div class="box-header with-border">Common</div>
-                <div class="box-body">
+            <div class="card card-outline card-secondary">
+                <div class='card-header'>
+                    <h3 class='card-title'>Common</h3>
+                    <div class='card-tools'>
+                        <button type='button' class='btn btn-tool' data-card-widget='maximize'><i
+                                    class='fas fa-expand'></i>
+                        </button>
+                        <button type='button' class='btn btn-tool' data-card-widget='collapse'><i
+                                    class='fas fa-minus'></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
                     <?= DetailView::widget(
                         [
                             'model'      => $product,
@@ -85,9 +95,19 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="col-md-6">
 
-            <div class="invoice p-3 mb-3">
-                <div class="box-header with-border">Characteristics</div>
-                <div class="box-body">
+            <div class="card card-outline card-secondary">
+                <div class='card-header'>
+                    <h3 class='card-title'>Characteristics</h3>
+                    <div class='card-tools'>
+                        <button type='button' class='btn btn-tool' data-card-widget='maximize'><i
+                                    class='fas fa-expand'></i>
+                        </button>
+                        <button type='button' class='btn btn-tool' data-card-widget='collapse'><i
+                                    class='fas fa-minus'></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
 
                     <?= DetailView::widget([
                         'model' => $product,
@@ -103,16 +123,32 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
-    <div class="invoice p-3 mb-3">
-        <div class="box-header with-border">Description</div>
-        <div class="box-body">
+    <div class="card card-outline card-secondary">
+        <div class='card-header'>
+            <h3 class='card-title'>Description</h3>
+            <div class='card-tools'>
+                <button type='button' class='btn btn-tool' data-card-widget='maximize'><i class='fas fa-expand'></i>
+                </button>
+                <button type='button' class='btn btn-tool' data-card-widget='collapse'><i class='fas fa-minus'></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
             <?= Yii::$app->formatter->asNtext($product->description) ?>
         </div>
     </div>
 
-    <div class="invoice p-3 mb-3" id="modifications">
-        <div class="box-header with-border">Modifications</div>
-        <div class="box-body">
+    <div class="card card-outline card-secondary" id="modifications">
+        <div class='card-header'>
+            <h3 class='card-title'>Modifications</h3>
+            <div class='card-tools'>
+                <button type='button' class='btn btn-tool' data-card-widget='maximize'><i class='fas fa-expand'></i>
+                </button>
+                <button type='button' class='btn btn-tool' data-card-widget='collapse'><i class='fas fa-minus'></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
             <p>
                 <?= Html::a(
                     'Add Modification',
@@ -143,9 +179,17 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
-    <div class="invoice p-3 mb-3">
-        <div class="box-header with-border">SEO</div>
-        <div class="box-body">
+    <div class="card card-outline card-secondary">
+        <div class='card-header'>
+            <h3 class='card-title'>SEO</h3>
+            <div class='card-tools'>
+                <button type='button' class='btn btn-tool' data-card-widget='maximize'><i class='fas fa-expand'></i>
+                </button>
+                <button type='button' class='btn btn-tool' data-card-widget='collapse'><i class='fas fa-minus'></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
             <?= DetailView::widget([
                 'model' => $product,
             'attributes' => [
@@ -166,68 +210,90 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
-    <div class="invoice p-3 mb-3" id="photos">
-        <div class="box-header with-border">Photos</div>
-        <div class="box-body">
+    <div class="card card-outline card-secondary" id="photos">
+        <div class='card-header'>
+            <h3 class='card-title'>Photos</h3>
+            <div class='card-tools'>
+                <button type='button' class='btn btn-tool' data-card-widget='maximize'><i class='fas fa-expand'></i>
+                </button>
+                <button type='button' class='btn btn-tool' data-card-widget='collapse'><i class='fas fa-minus'></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
 
-            <div class="row">
+            <div class="row align-items-center">
                 <?php
                 foreach ($product->photos as $photo): ?>
-                    <div class="col-md-2 col-xs-3" style="text-align: center">
-                        <div class="btn-group">
+                    <div class="col-md-2 col-xl-3" style="text-align: center">
+                        <div class="photo-block d-flex align-items-center">
+                            <div class="btn-group-vertical btn-group-sm pr-2 ">
 
-                            <?= Html::a('<i class="fas fa-arrow-left"></i>', ['move-photo-up', 'id' => $product->id, 'photo_id' => $photo->id], [
-                            'class' => 'btn btn-default',
-                            'data-method' => 'post',
-                            ]); ?>
-                            <?= Html::a('<i class="fas fa-times"></i>', ['delete-photo', 'id' => $product->id, 'photo_id' => $photo->id], [
-                            'class' => 'btn btn-default',
-                            'data-method' => 'post',
-                            'data-confirm' => 'Remove photo?',
-                            ]); ?>
-                            <?= Html::a('<i class="fas fa-arrow-right"></i>', ['move-photo-down', 'id' => $product->id, 'photo_id' => $photo->id], [
-                            'class' => 'btn btn-default',
-                            'data-method' => 'post',
-                            ]); ?>
-                        </div>
-
-                        <div>
-                            <?= Html::a(
+                                <?= Html::a('<i class="fas fa-arrow-up d-md-none"></i>
+                                <i class="fas fa-arrow-left d-none d-md-flex"></i>',
+                                ['move-photo-up', 'id' => $product->id, 'photo_id' => $photo->id],
+                                [
+                                'class' => 'btn btn-default',
+                                'data-method' => 'post',
+                                ]); ?>
+                                <?= Html::a('<i class="fas fa-times"></i>',
+                                ['delete-photo', 'id' => $product->id, 'photo_id' => $photo->id],
+                                [
+                                'class' => 'btn btn-default',
+                                'data-method' => 'post',
+                                'data-confirm' => 'Remove photo?',
+                                ]); ?>
+                                <?= Html::a('<i class="fas fa-arrow-down d-md-none"></i><i
+                                        class="fas fa-arrow-right d-none d-md-flex"></i>',
+                                ['move-photo-down', 'id' => $product->id, 'photo_id' => $photo->id],
+                                [
+                                'class' => 'btn btn-default',
+                                'data-method' => 'post',
+                                ]); ?>
+                            </div>
+                            <div class="photo-thumb">
+                                <?= Html::a(
                                 Html::img($photo->getThumbFileUrl('file', 'thumb')),
-                            $photo->getUploadedFileUrl('file'),
-                            ['class' => 'thumbnail', 'target' => '_blank']
-                            ) ?>
+                                $photo->getUploadedFileUrl('file'),
+                                ['class' => 'thumbnail', 'target' => '_blank']
+                                ) ?>
+                            </div>
                         </div>
                     </div>
                 <?php
                 endforeach; ?>
             </div>
+            <div class="row">
+                <div class="col-12 my-3">
 
-            <?php
-            $form = ActiveForm::begin(
-                [
-                    'options' => ['enctype' => 'multipart/form-data'],
-                ]
-            ); ?>
-
-            <?= $form->field($photosForm, 'files[]')->label(false)->widget(
-                FileInput::class,
-                [
-                    'options' => [
-                        'accept'   => 'image/*',
-                        'multiple' => true,
+                    <?php
+                    $form = ActiveForm::begin(
+                        [
+                            'options' => ['enctype' => 'multipart/form-data'],
                     ]
-                ]
-            ) ?>
+                    ); ?>
 
-            <div class="form-group">
-                <?= Html::submitButton('Upload', ['class' => 'btn btn-success']) ?>
+                    <?= $form->field($photosForm, 'files[]')->label(false)->widget(
+                    FileInput::class,
+                    [
+                    'options' => [
+                    'accept'   => 'image/*',
+                    'multiple' => true,
+                    ]
+                    ]
+                    ) ?>
+
+                </div>
             </div>
 
-            <?php
-            ActiveForm::end(); ?>
+            <div class='card-footer bg-secondary'>
+                <div class='form-group'>
+                    <?= Html::submitButton('Upload', ['class' => 'btn btn-success']) ?>
+                </div>
 
+                <?php
+                ActiveForm::end(); ?>
+            </div>
         </div>
-    </div>
 
-</div>
+    </div>

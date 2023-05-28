@@ -62,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= $form->field($model->price, 'new')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-md-6">
-                    <?= $form->field($model->price, 'old')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model->price, 'old')->textInput(['maxlength' => true,'value'=>$model->isNewRecord ?? 0]) ?>
                 </div>
             </div>
         </div>
