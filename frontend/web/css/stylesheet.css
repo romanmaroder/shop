@@ -1,3 +1,4 @@
+/*
 body {
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
@@ -9,11 +10,11 @@ body {
 h1, h2, h3, h4, h5, h6 {
     color: #444;
 }
-/* default font size */
+!* default font size *!
 .fa {
     font-size: 14px;
 }
-/* Override the bootstrap defaults */
+!* Override the bootstrap defaults *!
 h1 {
     margin-top: 0;
     font-size: 33px;
@@ -57,7 +58,7 @@ select.form-control, textarea.form-control, input[type="text"].form-control, inp
     font-size: 12px;
     height: 30px;
 }
-/* Fix some bootstrap issues */
+!* Fix some bootstrap issues *!
 span.hidden-xs, span.hidden-sm, span.hidden-md, span.hidden-lg {
     display: inline;
 }
@@ -70,7 +71,7 @@ div.required .control-label:before {
     color: #F00;
     font-weight: bold;
 }
-/* Gradent to all drop down menus */
+!* Gradent to all drop down menus *!
 .dropdown-menu li > a:hover {
     text-decoration: none;
     color: #ffffff;
@@ -78,7 +79,7 @@ div.required .control-label:before {
     background-image: linear-gradient(to bottom, #23a1d1, #1f90bb);
     background-repeat: repeat-x;
 }
-/* top */
+!* top *!
 #top {
     background-color: #EEEEEE;
     border-bottom: 1px solid #e2e2e2;
@@ -125,11 +126,11 @@ div.required .control-label:before {
 #top-links a + a {
     margin-left: 15px;
 }
-/* logo */
+!* logo *!
 #logo {
     margin: 0 0 10px 0;
 }
-/* search */
+!* search *!
 #search {
     margin-bottom: 10px;
 }
@@ -144,7 +145,7 @@ div.required .control-label:before {
     padding: 10px 35px;
     text-shadow: 0 1px 0 #FFF;
 }
-/* cart */
+!* cart *!
 #cart {
     margin-bottom: 10px;
 }
@@ -191,7 +192,7 @@ div.required .control-label:before {
 #cart .dropdown-menu li p {
     margin: 20px 0;
 }
-/* menu */
+!* menu *!
 #menu {
     background-color: #229ac8;
     background-image: linear-gradient(to bottom, #23a1d1, #1f90bb);
@@ -306,11 +307,11 @@ div.required .control-label:before {
         color: #fff;
     }
 }
-/* content */
+!* content *!
 #content {
     min-height: 600px;
 }
-/* footer */
+!* footer *!
 footer {
     margin-top: 30px;
     padding-top: 30px;
@@ -334,11 +335,11 @@ footer h5 {
     font-weight: bold;
     color: #fff;
 }
-/* alert */
+!* alert *!
 .alert {
     padding: 8px 14px 8px 14px;
 }
-/* breadcrumb */
+!* breadcrumb *!
 .breadcrumb {
     margin: 0 0 20px 0;
     padding: 8px 0;
@@ -375,7 +376,7 @@ footer h5 {
 .pagination {
     margin: 0;
 }
-/* buttons */
+!* buttons *!
 .buttons {
     margin: 1em 0;
 }
@@ -496,7 +497,7 @@ footer h5 {
     background-color: #222222;
     background-image: linear-gradient(to bottom, #333333, #111111);
 }
-/* list group */
+!* list group *!
 .list-group a {
     border: 1px solid #DDDDDD;
     color: #888888;
@@ -508,7 +509,7 @@ footer h5 {
     border: 1px solid #DDDDDD;
     text-shadow: 0 1px 0 #FFF;
 }
-/* carousel */
+!* carousel *!
 .carousel-caption {
     color: #FFFFFF;
     text-shadow: 0 1px 0 #000000;
@@ -521,7 +522,7 @@ footer h5 {
     content: '\f054';
     font-family: FontAwesome;
 }
-/* product list */
+!* product list *!
 .product-thumb {
     border: 1px solid #ddd;
     padding-top: 20px;
@@ -715,7 +716,7 @@ h2.price {
     }
 }
 
-/* fixed colum left + content + right*/
+!* fixed colum left + content + right*!
 @media (min-width: 768px) {
     #column-left  .product-layout .col-md-3 {
         width: 100%;
@@ -734,17 +735,17 @@ h2.price {
     }
 }
 
-/* fixed product layouts used in left and right columns */
+!* fixed product layouts used in left and right columns *!
 #column-left .product-layout, #column-right .product-layout {
     width: 100%;
 }
 
-/* fixed mobile cart quantity input */
+!* fixed mobile cart quantity input *!
 .input-group .form-control[name^=quantity] {
     min-width: 50px;
 }
 
-/* Missing focus and border color to overwrite bootstrap */
+!* Missing focus and border color to overwrite bootstrap *!
 .btn-info:hover, .btn-info:active, .btn-info.active, .btn-info.disabled, .btn-info[disabled] {
     background-image: none;
     background-color: #df5c39;
@@ -754,7 +755,7 @@ h2.price {
     padding: 0;
 }
 
-/* OpenCart Code */
+!* OpenCart Code *!
 .owl-carousel {
     margin: 0 0 20px;
     background: #fff;
@@ -838,4 +839,4 @@ h2.price {
 
 #comments .comment-item .comment-item .comment-item .comment-item .comment-item .margin {
     margin-left: 0;
-}
+}*/
