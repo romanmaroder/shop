@@ -2,7 +2,7 @@ function getURLVar(key) {
 	var value = [];
 
 	var query = String(document.location).split('?');
-
+console.log(query)
 	if (query[1]) {
 		var part = query[1].split('&');
 

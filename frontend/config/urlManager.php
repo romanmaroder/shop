@@ -11,7 +11,7 @@ return [
         ''                   => 'site/index',
         'contact'            => 'contact/index',
         'signup'             => 'auth/signup/request',
-        'signup/<_a:[\w-]+>' => 'auth/signup/<_a>',
+        //'signup/<_a:[\w-]+>' => 'auth/signup/<_a>',
         '<_a:login|logout>'  => 'auth/auth/<_a>',
 
         'cabinet'                                    => 'cabinet/default/index',

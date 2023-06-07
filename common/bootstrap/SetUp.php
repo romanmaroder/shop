@@ -3,7 +3,7 @@
 namespace common\bootstrap;
 
 
-use frontend\services\auth\PasswordResetService;
+use core\services\auth\PasswordResetService;
 use core\services\contact\ContactService;
 use Yii;
 use yii\base\BootstrapInterface;

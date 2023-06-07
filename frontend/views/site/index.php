@@ -2,8 +2,18 @@
 
 /** @var yii\web\View $this */
 
+use common\widgets\Alert;
+use yii\bootstrap5\Breadcrumbs;
+
 $this->title = Yii::$app->name;
 ?>
+
+<?= Breadcrumbs::widget([
+                            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                        ]) ?>
+<?= Alert::widget() ?>
+
+
 <div class="site-index">
     <div class="p-5 mb-4 bg-transparent rounded-3">
         <div class="container-fluid py-5 text-center">
