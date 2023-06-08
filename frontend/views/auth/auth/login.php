@@ -50,6 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'baseAuthUrl' => ['auth/network/auth'],
 
+
             ]
         ); ?>
     </div>

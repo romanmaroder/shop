@@ -9,11 +9,12 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 MainAsset::register($this);
+
 ?>
 <?php
 $this->beginPage() ?>
     <!DOCTYPE html>
-    <html>
+    <html lang="en">
     <head>
         <meta charset="<?= Yii::$app->charset ?>"/>
         <meta name='viewport' content='width=device-width, initial-scale=1'/>
@@ -30,6 +31,7 @@ $this->beginPage() ?>
 $this->beginBody() ?>
 <div class='super_container'>
 
+    <?= $content ;?>
     <!-- Header -->
 
     <header class='header'>
@@ -39,7 +41,7 @@ $this->beginBody() ?>
     <div class='top_bar'>
     <div class='container'>
     <div class='row'>
-    <div class='col d-flex flex-row'>
+    <div class='col d-flex flex-row align-items-center'>
     <div class='top_bar_contact_item'>
         <div class='top_bar_icon'><img src=<?= Yii::getAlias('@web/images/phone.png') ?> alt=''>
         </div>
@@ -76,7 +78,7 @@ $this->beginBody() ?>
     </div>
             <?php if (Yii::$app->user->isGuest)  : ?>
                 <div><a href="<?= Url::to(['/auth/signup/request']) ?>">Signup</a></div>
-                <div><a href="<?= Url::to(['auth/auth/login']) ?>">Login</a></div>
+                <div><a href="<?= Url::to(['/auth/auth/login']) ?>">Login</a></div>
             <?php else :?>
             <?php echo '<div>' . Html::beginForm(['/auth/auth/logout'], 'post')
                 . Html::submitButton(
