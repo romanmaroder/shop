@@ -8,8 +8,10 @@ use core\entities\behaviors\MetaBehavior;
 use core\entities\Meta;
 use core\entities\project\Brand;
 use core\entities\project\Category;
+use core\entities\project\product\queries\ProductQuery;
 use core\entities\project\Tag;
 use DomainException;
+use JetBrains\PhpStorm\Pure;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -27,6 +29,7 @@ use yii\web\UploadedFile;
  * @property integer $price_new
  * @property integer $rating
  * @property integer $main_photo_id
+ * @property integer $status
  *
  * @property Meta $meta
  * @property Brand $brand
@@ -44,6 +47,9 @@ use yii\web\UploadedFile;
  */
 class Product extends ActiveRecord
 {
+    const STATUS_DRAFT  = 0;
+    const STATUS_ACTIVE = 1;
+
     public $meta;
 
 
@@ -65,6 +71,7 @@ class Product extends ActiveRecord
         $product->name        = $name;
         $product->description = $description;
         $product->meta        = $meta;
+        $product->status      = self::STATUS_DRAFT;
         $product->created_at  = time();
         return $product;
     }
@@ -94,6 +101,39 @@ class Product extends ActiveRecord
     public function changeMainCategory($categoryId): void
     {
         $this->category_id = $categoryId;
+    }
+
+
+    public function activate(): void
+    {
+        if ($this->isActive()) {
+            throw new DomainException('Product is already active.');
+        }
+        $this->status = self::STATUS_ACTIVE;
+    }
+
+    public function draft():void
+    {
+        if ($this->isDraft()){
+            throw new DomainException('Product is already draft.');
+        }
+        $this->status = self::STATUS_DRAFT;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActive():bool
+    {
+        return $this->status == self::STATUS_ACTIVE;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDraft(): bool
+    {
+        return $this->status == self::STATUS_DRAFT;
     }
 
     /**
@@ -504,7 +544,7 @@ class Product extends ActiveRecord
      */
     public function getCategories(): ActiveQuery
     {
-        return $this->hasMany(Category::class, ['id'=>'category_id'])->via('categoryAssignments');
+        return $this->hasMany(Category::class, ['id' => 'category_id'])->via('categoryAssignments');
     }
 
     /**
@@ -520,8 +560,9 @@ class Product extends ActiveRecord
      */
     public function getTags(): ActiveQuery
     {
-        return $this->hasMany(Tag::class, ['id'=>'tag_id'])->via('tagAssignments');
+        return $this->hasMany(Tag::class, ['id' => 'tag_id'])->via('tagAssignments');
     }
+
     /**
      * @return ActiveQuery
      */
@@ -614,7 +655,7 @@ class Product extends ActiveRecord
 
     public function beforeDelete(): bool
     {
-        if (parent::beforeDelete()){
+        if (parent::beforeDelete()) {
             foreach ($this->photos as $photo) {
                 $photo->delete();
             }
@@ -632,4 +673,10 @@ class Product extends ActiveRecord
             $this->updateAttributes(['main_photo_id' => $related['mainPhoto'] ? $related['mainPhoto']->id : null]);
         }
     }
+
+    public static function find():ProductQuery
+    {
+        return new ProductQuery(static::class);
+    }
+
 }

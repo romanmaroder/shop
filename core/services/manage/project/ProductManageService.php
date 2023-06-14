@@ -187,6 +187,27 @@ class ProductManageService
         $this->products->save($product);
     }*/
 
+
+    /**
+     * @param $id
+     */
+    public function activate($id): void
+    {
+        $product = $this->products->get($id);
+        $product->activate();
+        $this->products->save($product);
+    }
+
+    /**
+     * @param $id
+     */
+    public function draft($id): void
+    {
+        $product = $this->products->get($id);
+        $product->draft();
+        $this->products->save($product);
+    }
+
     /**
      * @param $id
      * @param PhotosForm $form

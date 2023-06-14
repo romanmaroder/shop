@@ -15,9 +15,6 @@ class MainAsset extends AssetBundle
         'plugins/OwlCarousel2-2.2.1/owl.carousel.css',
         'plugins/OwlCarousel2-2.2.1/owl.theme.default.css',
         'plugins/OwlCarousel2-2.2.1/animate.css',
-        'plugins/slick-1.8.0/slick.css',
-        'css/main_styles.css',
-        'css/responsive.css',
     ];
     public $js = [
         'plugins/greensock/TweenMax.min.js',
@@ -26,9 +23,7 @@ class MainAsset extends AssetBundle
         'plugins/greensock/animation.gsap.min.js',
         'plugins/greensock/ScrollToPlugin.min.js',
         'plugins/OwlCarousel2-2.2.1/owl.carousel.js',
-        'plugins/slick-1.8.0/slick.js',
         'plugins/easing/easing.js',
-        'js/custom.js',
     ];
     public $depends = [
         'frontend\assets\AppAsset',

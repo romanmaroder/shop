@@ -3,15 +3,15 @@
 /** @var yii\web\View $this */
 
 use common\widgets\Alert;
-use yii\bootstrap5\Breadcrumbs;
+use yii\bootstrap4\Breadcrumbs;
 
 $this->title = Yii::$app->name;
 ?>
 
-<?= Breadcrumbs::widget([
+<?/*= Breadcrumbs::widget([
                             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                        ]) ?>
-<?= Alert::widget() ?>
+                        ]) */?><!--
+<?/*= Alert::widget() */?>
 
 
 <div class="site-index">
@@ -59,4 +59,4 @@ $this->title = Yii::$app->name;
         </div>
 
     </div>
-</div>
+</div>-->

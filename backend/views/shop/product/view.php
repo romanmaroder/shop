@@ -1,5 +1,6 @@
 <?php
 
+use core\helpers\ProductHelper;
 use kartik\file\FileInput;
 use core\entities\project\product\Modification;
 use core\entities\project\product\Value;
@@ -23,6 +24,22 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="user-view">
 
     <p>
+        <?php
+        if ($product->isActive()) : ?>
+            <?= Html::a(
+                'Draft',
+                ['draft', 'id' => $product->id],
+                ['class' => 'btn btn-primary', 'data-method' => 'post']
+            ) ?>
+        <?php
+        else : ?>
+            <?= Html::a(
+                'Activate',
+                ['activate', 'id' => $product->id],
+                ['class' => 'btn btn-success', 'data-method' => 'post']
+            ) ?>
+        <?php
+        endif; ?>
         <?= Html::a('Update', ['update', 'id' => $product->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(
             'Delete',
@@ -57,6 +74,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             'model'      => $product,
                             'attributes' => [
                                 'id',
+                                [
+                                    'attribute' => 'status',
+                                    'value'     => ProductHelper::statusLabel($product->status),
+                                    'format'    => 'raw',
+                                ],
                                 [
                                     'attribute' => 'brand_id',
                                     'value'     => ArrayHelper::getValue($product, 'brand.name'),
