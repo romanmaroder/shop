@@ -54,7 +54,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute'=>'status',
             'filter'=>$searchModel->statusList(),
             'value'=>function(Product $model){ return ProductHelper::statusLabel($model->status);},
-            'format'=>'raw',]
+            'format'=>'raw',
+            'contentOptions' => ['style' => 'text-align:center'],]
             ],
             ]); ?>
         </div>

@@ -151,6 +151,7 @@ class ProductManageService
                     }
                     $product->assignTag($tag->id);
                 }
+
                 $this->products->save($product);
             }
         );

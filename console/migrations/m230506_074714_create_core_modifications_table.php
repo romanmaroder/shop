@@ -16,6 +16,7 @@ class m230506_074714_create_core_modifications_table extends Migration
         $this->createTable(
             '{{%core_modifications}}',
             [
+                'id'         => $this->primaryKey(),
                 'product_id' => $this->integer()->notNull(),
                 'code'       => $this->string()->notNull(),
                 'name'       => $this->string()->notNull(),

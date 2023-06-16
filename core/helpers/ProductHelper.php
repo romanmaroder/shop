@@ -27,19 +27,19 @@ class ProductHelper
     {
         /* Match expression is only allowed since PHP 8.0
                 match ($status) {
-                    0, Product::STATUS_DRAFT => $class ='label label-default',
-                    Product::STATUS_ACTIVE => $class = 'label label-success',
+                    0, Product::STATUS_DRAFT => $class ='badge badge-secondary',
+                    Product::STATUS_ACTIVE => $class = 'badge badge-success',
                 };
         */
         switch ($status) {
             case Product::STATUS_DRAFT:
-                $class = 'label label-default';
+                $class = 'badge badge-secondary';
                 break;
             case Product::STATUS_ACTIVE:
-                $class = 'label label-success';
+                $class = 'badge badge-success';
                 break;
             default:
-                $class = 'label label-default';
+                $class = 'badge badge-secondary';
         }
 
         return Html::tag('span', ArrayHelper::getValue(self::statusList(), $status), ['class' => $class]);

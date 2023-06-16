@@ -121,7 +121,7 @@ class ProductController extends Controller
             }
         }
 
-        return $this->render('create', ['model' => $form,]);
+        return $this->render('create', ['model' => $form]);
     }
 
     /**

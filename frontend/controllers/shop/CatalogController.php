@@ -14,4 +14,5 @@ class CatalogController extends Controller
     {
         return $this->render('index');
     }
+
 }
