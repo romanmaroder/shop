@@ -9,6 +9,7 @@
 use frontend\assets\ShopAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\bootstrap4\LinkPager;
 
 $this->title = 'Catalog';
 //$this->params['breadcrumbs'][] = $this->title;
@@ -118,31 +119,44 @@ ShopAsset::register($this);
 
                         <?php
                         foreach ($dataProvider->getModels() as $product): ?>
-                            <?= $this->render(
-                                '_product',
-                                [
-                                    'product' => $product
-                                ]
-                            ) ?>
+                        <?= $this->render(
+                        '_product',
+                        [
+                        'product' => $product
+                        ]
+                        ) ?>
                         <?php
                         endforeach; ?>
                     </div>
 
-                        <!-- Shop Page Navigation -->
+                    <!-- Shop Page Navigation -->
 
-                        <div class='shop_page_nav d-flex flex-row'>
-                            <div class='page_prev d-flex flex-column align-items-center justify-content-center'><i
-                                        class='fas fa-chevron-left'></i></div>
-                            <ul class='page_nav d-flex flex-row'>
-                                <li><a href='#'>1</a></li>
-                                <li><a href='#'>2</a></li>
-                                <li><a href='#'>3</a></li>
-                                <li><a href='#'>...</a></li>
-                                <li><a href='#'>21</a></li>
-                            </ul>
-                            <div class='page_next d-flex flex-column align-items-center justify-content-center'><i
-                                        class='fas fa-chevron-right'></i></div>
+                    <div class='shop_page_nav d-flex flex-row'>
+                        <?= LinkPager::widget(
+                            [
+                                'pagination'           => $dataProvider->getPagination(),
+
+                                'hideOnSinglePage'     => false,
+                            ]
+                        ) ?>
+                    </div>
+                        <div class='col-sm-6 text-right'>Showing <?= $dataProvider->getCount() ?> of <?= $dataProvider->getTotalCount(
+                            ) ?></div>
+
+                        <!--<div class='page_prev d-flex flex-column align-items-center justify-content-center'>
+                            <i class='fas fa-chevron-left'></i>
                         </div>
+                        <ul class='page_nav d-flex flex-row'>
+                            <li><a href='#'>1</a></li>
+                            <li><a href='#'>2</a></li>
+                            <li><a href='#'>3</a></li>
+                            <li><a href='#'>...</a></li>
+                            <li><a href='#'>21</a></li>
+                        </ul>
+                        <div class='page_next d-flex flex-column align-items-center justify-content-center'>
+                            <i class='fas fa-chevron-right'></i>
+                        </div>-->
+                    </div>
 
                 </div>
             </div>
