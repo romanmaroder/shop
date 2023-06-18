@@ -5,12 +5,14 @@
 /* @var $dataProvider yii\data\DataProviderInterface */
 
 /* @var $category core\entities\project\Category */
+
 /* @var $brands core\entities\project\Brand */
 
 use frontend\assets\ShopAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap4\LinkPager;
+
 
 $this->title = 'Catalog';
 //$this->params['breadcrumbs'][] = $this->title;
@@ -39,7 +41,6 @@ ShopAsset::register($this);
                 <div class='shop_sidebar'>
                     <div class='sidebar_section'>
                         <div class='sidebar_title'>Categories</div>
-
                         <ul class='sidebar_categories'>
                             <?php
                             foreach ($category->children as $child): ?>
@@ -76,14 +77,16 @@ ShopAsset::register($this);
                     <div class='sidebar_section'>
                         <div class='sidebar_subtitle brands_subtitle'>Brands</div>
                         <ul class='brands_list'>
-                            <?php foreach($brands as $brand):?>
+                            <?php
+                            foreach ($brands as $brand): ?>
                                 <li class='brand'>
-                                    <a href='<?= Html::encode(Url::to(['brand', 'id' => $brand->id]))?>'>
+                                    <a href='<?= Html::encode(Url::to(['brand', 'id' => $brand->id])) ?>'>
                                         <?= Html::encode($brand->name) ?>
                                     </a>
                                 </li>
-                            <?php endforeach;?>
-                            </ul>
+                            <?php
+                            endforeach; ?>
+                        </ul>
                     </div>
                 </div>
 
@@ -94,22 +97,33 @@ ShopAsset::register($this);
                 <!-- Shop Content -->
                 <div class='shop_content'>
                     <div class='shop_bar clearfix'>
-                        <div class='shop_product_count'><span>186</span> products found</div>
+                        <div class='shop_product_count'><span><?= $dataProvider->getTotalCount() ?></span> products found</div>
                         <div class='shop_sorting'>
                             <span>Sort by:</span>
                             <ul>
                                 <li>
                                     <span class='sorting_text'>highest rated<i class='fas fa-chevron-down'></i></span>
+                                    <?php
+                                    $values  = [
+                                        'original-order' => 'highest rated',
+                                        'name'           => 'name',
+                                        'price'          => 'price',
+                                    ];
+                                    $current = Yii::$app->request->get('sortBy');
+                                    ?>
+                                    <?php /*foreach ($values as $value => $label): */?><!--
+                                        <option value="<?/*= Html::encode(Url::current(['sort' => $value ?: null])) */?>"
+                                        <?php /*if ($current == $value): */?>selected="selected"<?php /*endif; */?>><?/*= $label */?></option>
+                                    --><?php /*endforeach; */?>
                                     <ul>
-                                        <li class='shop_sorting_button'
-                                            data-isotope-option='{ "sortBy": "original-order" }'>highest rated
-                                        </li>
-                                        <li class='shop_sorting_button' data-isotope-option='{ "sortBy": "name" }'>
-                                            name
-                                        </li>
-                                        <li class='shop_sorting_button' data-isotope-option='{ "sortBy": "price" }'>
-                                            price
-                                        </li>
+                                        <?php foreach ($values as $value => $label) : ?>
+
+                                            <li class='shop_sorting_button'
+                                                data-isotope-option='{ "sortBy": "<?=$value?>" }'><?=$label?>
+                                            </li>
+
+                                        <?php
+                                        endforeach; ?>
                                     </ul>
                                 </li>
                             </ul>
@@ -136,32 +150,32 @@ ShopAsset::register($this);
                             [
                                 'pagination'           => $dataProvider->getPagination(),
 
-                                'hideOnSinglePage'     => false,
-                            ]
+                        'hideOnSinglePage'     => false,
+                        ]
                         ) ?>
                     </div>
-                        <div class='col text-center'>Showing <?= $dataProvider->getCount() ?> of <?= $dataProvider->getTotalCount(
-                            ) ?></div>
+                    <div class='col text-center'>Showing <?= $dataProvider->getCount() ?> of <?= $dataProvider->getTotalCount(
+                        ) ?></div>
 
-                        <!--<div class='page_prev d-flex flex-column align-items-center justify-content-center'>
-                            <i class='fas fa-chevron-left'></i>
-                        </div>
-                        <ul class='page_nav d-flex flex-row'>
-                            <li><a href='#'>1</a></li>
-                            <li><a href='#'>2</a></li>
-                            <li><a href='#'>3</a></li>
-                            <li><a href='#'>...</a></li>
-                            <li><a href='#'>21</a></li>
-                        </ul>
-                        <div class='page_next d-flex flex-column align-items-center justify-content-center'>
-                            <i class='fas fa-chevron-right'></i>
-                        </div>-->
+                    <!--<div class='page_prev d-flex flex-column align-items-center justify-content-center'>
+                        <i class='fas fa-chevron-left'></i>
                     </div>
-
+                    <ul class='page_nav d-flex flex-row'>
+                        <li><a href='#'>1</a></li>
+                        <li><a href='#'>2</a></li>
+                        <li><a href='#'>3</a></li>
+                        <li><a href='#'>...</a></li>
+                        <li><a href='#'>21</a></li>
+                    </ul>
+                    <div class='page_next d-flex flex-column align-items-center justify-content-center'>
+                        <i class='fas fa-chevron-right'></i>
+                    </div>-->
                 </div>
+
             </div>
         </div>
     </div>
+</div>
 
 <!-- Recently Viewed -->
 

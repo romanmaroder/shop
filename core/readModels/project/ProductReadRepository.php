@@ -52,13 +52,13 @@ class ProductReadRepository
         return Product::find()->active()->andWhere(['id' => $id])->one();
     }
 
-    private function getProvider(ActiveQuery $query, $pageSize = false): ActiveDataProvider
+    private function getProvider(ActiveQuery $query): ActiveDataProvider
     {
         return new ActiveDataProvider(
             [
                 'query' => $query,
                 'pagination' => [
-                    'pageSize' => $pageSize,
+                    'pageSize' =>0,
                 ],
                 'sort'  => [
                     'defaultOrder'    => ['id' => SORT_DESC],
