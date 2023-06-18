@@ -35,7 +35,7 @@ $oldPrice = PriceHelper::format($product->price_old) > 0 ? '<span>' . PriceHelpe
                 <?= $oldPrice?>
             </div>
             <div class='product_name'>
-                <div><a href='<?= Html::encode($url) ?>' tabindex='0'><?= Html::encode($product->name) ?></a></div>
+                <div><a href='<?= Html::encode($url) ?>' tabindex='0'><?= Html::encode($product->getFullName()) ?></a></div>
             </div>
         </div>
         <div class='product_fav'><i class='fas fa-heart'></i></div>

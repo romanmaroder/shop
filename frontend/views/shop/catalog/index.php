@@ -5,6 +5,7 @@
 /* @var $dataProvider yii\data\DataProviderInterface */
 
 /* @var $category core\entities\project\Category */
+/* @var $brands core\entities\project\Brand */
 
 use frontend\assets\ShopAsset;
 use yii\helpers\Html;
@@ -75,15 +76,14 @@ ShopAsset::register($this);
                     <div class='sidebar_section'>
                         <div class='sidebar_subtitle brands_subtitle'>Brands</div>
                         <ul class='brands_list'>
-                            <li class='brand'><a href='#'>Apple</a></li>
-                            <li class='brand'><a href='#'>Beoplay</a></li>
-                            <li class='brand'><a href='#'>Google</a></li>
-                            <li class='brand'><a href='#'>Meizu</a></li>
-                            <li class='brand'><a href='#'>OnePlus</a></li>
-                            <li class='brand'><a href='#'>Samsung</a></li>
-                            <li class='brand'><a href='#'>Sony</a></li>
-                            <li class='brand'><a href='#'>Xiaomi</a></li>
-                        </ul>
+                            <?php foreach($brands as $brand):?>
+                                <li class='brand'>
+                                    <a href='<?= Html::encode(Url::to(['brand', 'id' => $brand->id]))?>'>
+                                        <?= Html::encode($brand->name) ?>
+                                    </a>
+                                </li>
+                            <?php endforeach;?>
+                            </ul>
                     </div>
                 </div>
 
@@ -131,7 +131,7 @@ ShopAsset::register($this);
 
                     <!-- Shop Page Navigation -->
 
-                    <div class='shop_page_nav d-flex flex-row'>
+                    <div class='shop_page_nav d-flex flex-row justify-content-center'>
                         <?= LinkPager::widget(
                             [
                                 'pagination'           => $dataProvider->getPagination(),
@@ -140,7 +140,7 @@ ShopAsset::register($this);
                             ]
                         ) ?>
                     </div>
-                        <div class='col-sm-6 text-right'>Showing <?= $dataProvider->getCount() ?> of <?= $dataProvider->getTotalCount(
+                        <div class='col text-center'>Showing <?= $dataProvider->getCount() ?> of <?= $dataProvider->getTotalCount(
                             ) ?></div>
 
                         <!--<div class='page_prev d-flex flex-column align-items-center justify-content-center'>
@@ -162,7 +162,6 @@ ShopAsset::register($this);
             </div>
         </div>
     </div>
-</div>
 
 <!-- Recently Viewed -->
 

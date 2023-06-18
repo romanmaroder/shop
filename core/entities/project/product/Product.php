@@ -619,6 +619,10 @@ class Product extends ActiveRecord
         return $this->hasMany(Review::class, ['product_id' => 'id']);
     }
 
+    public function getFullName() //TODO 'Куда деть этот метод'
+    {
+        return $this->brand->name . ' ' . $this->name;
+    }
     /**
      * @return string
      */
