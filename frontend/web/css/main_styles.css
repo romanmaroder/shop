@@ -463,11 +463,11 @@ section {
     display: inline-block;
 }
 
-.top_bar_user div:nth-child(2) {
+.top_bar_user .top_bar_signup {
     margin-right: 21px;
 }
 
-.top_bar_user div:nth-child(2)::after {
+.top_bar_user .top_bar_signup::after {
     display: block;
     position: absolute;
     top: 50%;
@@ -498,14 +498,15 @@ section {
 .top_bar_user a:hover {
     color: #8a8a8a;
 }
-
 .top_bar_content .top_bar_user div form button {
     display: block;
     position: relative;
     font-size: 16px;
     font-weight: 300;
     color: #000000;
+    background-color: #fafafa;
     line-height: 56px;
+    /*line-height: 1;*/
     white-space: nowrap;
     -webkit-transition: all 200ms ease;
     -moz-transition: all 200ms ease;

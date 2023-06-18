@@ -173,6 +173,11 @@
 		margin-right: 20px;
 		line-height: 40px;
 	}
+	.top_bar_content .top_bar_user div form button{
+		font-size: 12px;
+		line-height: 40px;
+	}
+
 	.top_bar_contact_item a
 	{
 		font-size: 12px;
