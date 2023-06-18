@@ -44,4 +44,5 @@ class ProductHelper
 
         return Html::tag('span', ArrayHelper::getValue(self::statusList(), $status), ['class' => $class]);
     }
+
 }

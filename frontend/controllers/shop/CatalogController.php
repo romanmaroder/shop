@@ -43,11 +43,13 @@ class CatalogController extends Controller
     {
         $dataProvider = $this->products->getAll();
         $category     = $this->categories->getRoot();
+        $brands = $this->brands->getAllBrands();
 
         return $this->render(
             'index',
             [
                 'category'     => $category,
+                'brands'     => $brands,
                 'dataProvider' => $dataProvider,
             ]
         );
