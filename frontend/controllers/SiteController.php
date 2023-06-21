@@ -12,6 +12,7 @@ use yii\web\ErrorAction;
  */
 class SiteController extends Controller
 {
+    public $layout  = 'home';
 
 
     /**
@@ -37,7 +38,6 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $this->layout = 'home';
         return $this->render('index');
     }
 

@@ -151,7 +151,11 @@
 	{
 		font-size: 12px;
 		margin-right: 20px;
-		line-height: 40px;
+		line-height: 1;
+	}
+	.top_bar_content .top_bar_user div form button{
+		font-size: 12px;
+		line-height: 1;
 	}
 	.top_bar_contact_item a
 	{

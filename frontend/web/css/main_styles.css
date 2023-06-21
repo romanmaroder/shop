@@ -505,8 +505,7 @@ section {
     font-weight: 300;
     color: #000000;
     background-color: #fafafa;
-    line-height: 56px;
-    /*line-height: 1;*/
+    line-height: 1;
     white-space: nowrap;
     -webkit-transition: all 200ms ease;
     -moz-transition: all 200ms ease;
