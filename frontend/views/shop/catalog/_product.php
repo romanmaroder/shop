@@ -10,7 +10,7 @@ use yii\helpers\Url;
 $url = Url::to(['product', 'id' => $product->id]);
 $discountClass = PriceHelper::format($product->price_old) > 0 ? 'discount' : '';
 $isNewClass = PriceHelper::format($product->price_old) == 0 ? 'is_new' : '';
-$oldPrice = PriceHelper::format($product->price_old) > 0 ? '<span> &#8381;' . PriceHelper::format( $product->price_old ) . '</span>' : null;
+$oldPrice = PriceHelper::format($product->price_old) > 0 ? '<span> $' . PriceHelper::format( $product->price_old ) . '</span>' : null;
 
 //TODO 'Посчитать дисконт и вывод лейбла нового товара'
 ?>
@@ -29,7 +29,7 @@ $oldPrice = PriceHelper::format($product->price_old) > 0 ? '<span> &#8381;' . Pr
             endif; ?>
         </div>
         <div class='product_content'>
-            <div class='product_price'>&#8381;<?= PriceHelper::format($product->price_new) ?>
+            <div class='product_price'>$<?= PriceHelper::format($product->price_new) ?>
                 <?= $oldPrice?>
             </div>
             <div class='product_name'>

@@ -4,6 +4,7 @@
 
 /* @var $dataProvider yii\data\DataProviderInterface */
 
+
 /* @var $category core\entities\project\Category */
 
 /* @var $brands core\entities\project\Brand */
@@ -39,29 +40,14 @@ $this->title = 'Catalog';
 
                 <!-- Shop Sidebar -->
                 <div class='shop_sidebar'>
-                    <div class='sidebar_section'>
-                        <div class='sidebar_title'>Categories</div>
-                        <ul class='sidebar_categories'>
-                            <?php
-                            foreach ($category->children as $child): ?>
-                                <li><a href="<?= Html::encode(Url::to(['category', 'id' => $child->id])) ?>">
-                                        <?= Html::encode($child->name) ?>
-                                    </a>
-                                </li>
-                            <?php
-                            endforeach; ?>
-                        </ul>
-                    </div>
-                    <div class='sidebar_section filter_by_section'>
-                        <div class='sidebar_title'>Filter By</div>
-                        <div class='sidebar_subtitle'>Price</div>
-                        <div class='filter_price'>
-                            <div id='slider-range' class='slider_range'></div>
-                            <p>Range: </p>
-                            <p><input type='text' id='amount' class='amount' readonly
-                                      style='border:0; font-weight:bold;'></p>
-                        </div>
-                    </div>
+                    <?= $this->render('_subcategories', [
+                        'category' => $category
+                    ]) ?>
+
+                    <?= $this->render('_filter_price', [
+
+                    ]) ?>
+
                     <div class='sidebar_section'>
                         <div class='sidebar_subtitle color_subtitle'>Color</div>
                         <ul class='colors_list'>
@@ -74,20 +60,11 @@ $this->title = 'Catalog';
                             </li>
                         </ul>
                     </div>
-                    <div class='sidebar_section'>
-                        <div class='sidebar_subtitle brands_subtitle'>Brands</div>
-                        <ul class='brands_list'>
-                            <?php
-                            foreach ($brands as $brand): ?>
-                                <li class='brand'>
-                                    <a href='<?= Html::encode(Url::to(['brand', 'id' => $brand->id])) ?>'>
-                                        <?= Html::encode($brand->name) ?>
-                                    </a>
-                                </li>
-                            <?php
-                            endforeach; ?>
-                        </ul>
-                    </div>
+
+                    <?= $this->render('_brands', [
+                        'brands' => $brands
+                    ]) ?>
+
                 </div>
 
             </div>

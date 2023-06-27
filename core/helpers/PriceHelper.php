@@ -14,7 +14,7 @@ class PriceHelper
      */
     public static function format($price): string
     {
-        $fmt = new NumberFormatter('ru_RU', NumberFormatter::DECIMAL);
+        $fmt = new NumberFormatter('ru_RU', NumberFormatter::PATTERN_DECIMAL,' ');
         return $fmt->formatCurrency($price, 'RUR') . "\n";
         //return number_format($price, 0, '.', ' ');
     }

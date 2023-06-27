@@ -39,8 +39,6 @@ $this->beginPage() ?>
 
         <?= $content ?>
 
-
-
         <!-- Recently Viewed -->
         <?= $this->render('_viewed')?>
 
