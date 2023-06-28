@@ -70,6 +70,22 @@ class Category extends ActiveRecord
     /**
      * @return string
      */
+    public function getSeoTitle(): string
+    {
+        return $this->meta->title ?: $this->getHeadingTitle();
+    }
+
+    /**
+     * @return string
+     */
+    public function getHeadingTitle(): string
+    {
+        return $this->title ?: $this->name;
+    }
+
+    /**
+     * @return string
+     */
     public static function tableName(): string
     {
         return '{{%core_categories}}';
@@ -98,4 +114,6 @@ class Category extends ActiveRecord
     {
         return new CategoryQuery(static::class);
     }
+
+
 }
