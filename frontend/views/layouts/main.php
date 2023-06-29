@@ -5,6 +5,8 @@
 /* @var $content string */
 
 use frontend\assets\AppAsset;
+use hail812\adminlte\widgets\Alert;
+use yii\bootstrap4\Breadcrumbs;
 use yii\helpers\Html;
 use yii\helpers\Url;
 

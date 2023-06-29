@@ -43,13 +43,13 @@ class CatalogController extends Controller
     {
         $dataProvider = $this->products->getAll();
         $category     = $this->categories->getRoot();
-        $brands = $this->brands->getAllBrands();
+        $brands       = $this->brands->getAllBrands();
 
         return $this->render(
             'index',
             [
                 'category'     => $category,
-                'brands'     => $brands,
+                'brands'       => $brands,
                 'dataProvider' => $dataProvider,
             ]
         );
@@ -65,13 +65,14 @@ class CatalogController extends Controller
         if (!$category = $this->categories->find($id)) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-
+        $brands = $this->brands->getAllBrands();
         $dataProvider = $this->products->getAllByCategory($category);
 
         return $this->render(
             'category',
             [
                 'category'     => $category,
+                'brands'       => $brands,
                 'dataProvider' => $dataProvider,
             ]
         );
