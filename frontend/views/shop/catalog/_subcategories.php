@@ -7,18 +7,11 @@ use yii\helpers\Url;
 ?>
 
 <?php if ($category->children): ?>
-    <!-- Shop Sidebar -->
-    <div class='sidebar_section'>
-        <div class='sidebar_title'>Categories</div>
-        <ul class='sidebar_categories'>
-            <?php
-            foreach ($category->children as $child): ?>
-                <li><a href="<?= Html::encode(Url::to(['category', 'id' => $child->id])) ?>">
-                        <?= Html::encode($child->name) ?>
-                    </a>
-                </li>
-            <?php
-            endforeach; ?>
-        </ul>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <?php foreach ($category->children as $child): ?>
+                <a href="<?= Html::encode(Url::to(['/shop/catalog/category', 'id' => $child->id])) ?>"><?= Html::encode($child->name) ?></a> &nbsp;
+            <?php endforeach; ?>
+        </div>
     </div>
 <?php endif; ?>
