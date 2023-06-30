@@ -1,5 +1,6 @@
 <?php
 ?>
+<!--Best Sellers-->
 <div class='best_sellers'>
     <div class='container'>
         <div class='row'>

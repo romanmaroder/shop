@@ -1,5 +1,6 @@
 <?php
 ?>
+<!-- Popular Categories -->
 <div class='popular_categories'>
     <div class='container'>
         <div class='row'>

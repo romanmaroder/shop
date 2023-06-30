@@ -1,6 +1,6 @@
 <?php
 ?>
-
+<!--Trends-->
 <div class='trends'>
     <div class='trends_background'
          style='background-image:url(<?= Yii::getAlias('@web/images/trends_background.jpg') ?>)'></div>

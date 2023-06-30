@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Url; ?>
-
+<!--Banner-->
 <div class='banner'>
     <div class='banner_background'
          style='background-image:url(<?= Yii::getAlias('@web/images/banner_background.jpg') ?>)'></div>

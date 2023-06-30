@@ -1,5 +1,6 @@
 <?php
 ?>
+<!--Reviews-->
 <div class='reviews'>
     <div class='container'>
         <div class='row'>

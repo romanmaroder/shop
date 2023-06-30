@@ -93,7 +93,7 @@ use yii\bootstrap4\Breadcrumbs;
             ]
             ) ?>
         </div>
-        <div class='col text-center'>Showing <?= $dataProvider->getCount() ?> of <?= $dataProvider->getTotalCount(
+        <div class='text-center mt-3'>Showing <?= $dataProvider->getCount() ?> of <?= $dataProvider->getTotalCount(
             ) ?></div>
 
     </div>
