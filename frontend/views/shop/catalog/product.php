@@ -2,9 +2,13 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'HP LP3065';
+use frontend\assets\MagnificPopupAsset;
+
+$this->title                   = 'HP LP3065';
 $this->params['breadcrumbs'][] = ['label' => 'Catalog', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+MagnificPopupAsset::register($this);
 ?>
 
 <!-- Single Product -->
@@ -16,9 +20,21 @@ $this->params['breadcrumbs'][] = $this->title;
             <!-- Images -->
             <div class='col-lg-2 order-lg-1 order-2'>
                 <ul class='image_list'>
-                    <li data-image='<?=Yii::getAlias('@web/images/single_4.jpg')?>'><img src='<?=Yii::getAlias('@web/images/single_4.jpg')?>' alt=''></li>
-                    <li data-image='<?=Yii::getAlias('@web/images/single_2.jpg')?>'><img src='<?=Yii::getAlias('@web/images/single_2.jpg')?>' alt=''></li>
-                    <li data-image='<?=Yii::getAlias('@web/images/single_3.jpg')?>'><img src='<?=Yii::getAlias('@web/images/single_3.jpg')?>' alt=''></li>
+                    <li data-image='<?=Yii::getAlias('@web/images/single_4.jpg')?>'>
+                        <a href='<?=Yii::getAlias('@web/images/single_4.jpg')?>'>
+                            <img src='<?=Yii::getAlias('@web/images/single_4.jpg')?>' alt=''>
+                        </a>
+                    </li>
+                    <li data-image='<?=Yii::getAlias('@web/images/single_2.jpg')?>'>
+                        <a href='<?=Yii::getAlias('@web/images/single_2.jpg')?>'>
+                        <img src='<?=Yii::getAlias('@web/images/single_2.jpg')?>' alt=''>
+                        </a>
+                    </li>
+                    <li data-image='<?=Yii::getAlias('@web/images/single_3.jpg')?>'>
+                        <a href='<?=Yii::getAlias('@web/images/single_3.jpg')?>'>
+                        <img src='<?=Yii::getAlias('@web/images/single_3.jpg')?>' alt=''>
+                        </a>
+                    </li>
                 </ul>
             </div>
 
@@ -92,3 +108,15 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
+
+<?php $js = <<<EOD
+$('.image_list').magnificPopup({
+    type: 'image',
+    delegate:'a',
+    gallery: {
+        enabled:true
+    },
+    
+});
+EOD;
+$this->registerJs($js); ?>

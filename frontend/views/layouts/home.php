@@ -21,8 +21,7 @@ HomeAsset::register($this);
 <?php
 $this->beginContent('@frontend/views/layouts/main.php') ?>
 
-<?
-/*= $content; */ ?>
+
 <?= TopBannerWidget::widget() ?>
 
 <?= CharacteristicShopWidget::widget() ?>
