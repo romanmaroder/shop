@@ -4,11 +4,20 @@
 
 /* @var $product core\entities\project\product\Product */
 
+use core\helpers\PriceHelper;
 use frontend\assets\MagnificPopupAsset;
+use yii\bootstrap4\Breadcrumbs;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
-$this->title                   = 'HP LP3065';
+$this->title = $product->name;
+
+$this->registerMetaTag(['name' => 'description', 'content' => $product->meta->description]);
+$this->registerMetaTag(['name' => 'keywords', 'content' => $product->meta->keywords]);
+
+
 $this->params['breadcrumbs'][] = ['label' => 'Catalog', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $product->category->getHeadingTitle();
 $this->params['breadcrumbs'][] = $this->title;
 
 MagnificPopupAsset::register($this);
@@ -18,6 +27,14 @@ MagnificPopupAsset::register($this);
 
     <div class='single_product'>
         <div class='container'>
+            <div class='row'>
+                <div class='col-12'><?= Breadcrumbs::widget(
+                        [
+                            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                            'options'=>['class'=>'bg-white px-0'],
+                        ]
+                    ) ?></div>
+            </div>
             <div class='row'>
 
                 <!-- Images -->
@@ -34,22 +51,6 @@ MagnificPopupAsset::register($this);
                             </li>
                         <?php
                         endforeach; ?>
-                        <!--<li data-image='<?
-                        /*=Yii::getAlias('@web/images/single_2.jpg')*/ ?>'>
-                        <a href='<?
-                        /*=Yii::getAlias('@web/images/single_2.jpg')*/ ?>'>
-                        <img src='<?
-                        /*=Yii::getAlias('@web/images/single_2.jpg')*/ ?>' alt=''>
-                        </a>
-                    </li>
-                    <li data-image='<?
-                        /*=Yii::getAlias('@web/images/single_3.jpg')*/ ?>'>
-                        <a href='<?
-                        /*=Yii::getAlias('@web/images/single_3.jpg')*/ ?>'>
-                        <img src='<?
-                        /*=Yii::getAlias('@web/images/single_3.jpg')*/ ?>' alt=''>
-                        </a>
-                    </li>-->
                     </ul>
                 </div>
 
@@ -67,7 +68,7 @@ MagnificPopupAsset::register($this);
                         <div class='product_category'><?= Html::encode($product->category->title) ?></div>
                         <div class='product_name'><?= Html::encode($product->name) ?></div>
                         <div class='rating_r rating_r_4 product_rating'><i></i><i></i><i></i><i></i><i></i></div>
-                        <div class='product_text'><p><?= Html::encode($product->description) ?></p></div>
+                        <div class='product_text'><p><?= Yii::$app->formatter->asNtext($product->description) ?></p></div>
                         <div class='order_info d-flex flex-row'>
                             <form action='#'>
                                 <div class='clearfix' style='z-index: 1000;'>
@@ -109,7 +110,17 @@ MagnificPopupAsset::register($this);
 
                                 </div>
 
-                                <div class='product_price'>$2000</div>
+                                <div class='product_price'>$<?= PriceHelper::format($product->price_new) ?></div>
+                                <div class="">Brand: <a href="<?= Html::encode(Url::to(['brand', 'id' => $product->brand->id])) ?>">
+                                        <?= Html::encode($product->brand->name) ?></a>
+                                </div>
+                                <div class="">
+                                   Tags:
+                                    <?php foreach ($product->tags as $tag): ?>
+                                        <a href="<?= Html::encode(Url::to(['tag', 'id' => $tag->id])) ?>"><?= Html::encode($tag->name) ?></a>
+                                    <?php endforeach; ?>
+                                    <p>Product Code: <?= Html::encode($product->code) ?></p>
+                                </div>
                                 <div class='button_container'>
                                     <button type='button' class='button cart_button'>Add to Cart</button>
                                     <div class='product_fav'><i class='fas fa-heart'></i></div>

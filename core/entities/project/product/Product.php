@@ -137,6 +137,14 @@ class Product extends ActiveRecord
     }
 
     /**
+     * @return string
+     */
+    public function getSeoTitle(): string
+    {
+        return $this->meta->title ?: $this->name;
+    }
+
+    /**
      * @param $id
      * @param $value
      */
