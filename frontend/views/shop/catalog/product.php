@@ -6,6 +6,7 @@
 
 use core\helpers\PriceHelper;
 use frontend\assets\MagnificPopupAsset;
+use frontend\widgets\ProductPhotoListWidget;
 use yii\bootstrap4\Breadcrumbs;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -31,28 +32,17 @@ MagnificPopupAsset::register($this);
                 <div class='col-12'><?= Breadcrumbs::widget(
                         [
                             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                            'options'=>['class'=>'bg-white px-0'],
+                            'options' => ['class' => 'bg-white px-0'],
                         ]
                     ) ?></div>
             </div>
             <div class='row'>
 
-                <!-- Images -->
-                <div class='col-lg-2 order-lg-1 order-2'>
-                    <ul class='image_list'>
-                        <?php
-                        foreach ($product->photos as $i => $photo): ?>
-
-                            <li data-image='<?= $photo->getUploadedFileUrl('file') ?>'>
-                                <a href='<?= $photo->getUploadedFileUrl('file') ?>'>
-                                    <img src='<?= $photo->getThumbFileUrl('file', 'catalog_product_main') ?>'
-                                         alt=''>
-                                </a>
-                            </li>
-                        <?php
-                        endforeach; ?>
-                    </ul>
-                </div>
+                <?= ProductPhotoListWidget::widget(
+                    [
+                        'product' => $product,
+                    ]
+                );?>
 
                 <!-- Selected Image -->
                 <div class='col-lg-5 order-lg-2 order-1'>
@@ -68,7 +58,8 @@ MagnificPopupAsset::register($this);
                         <div class='product_category'><?= Html::encode($product->category->title) ?></div>
                         <div class='product_name'><?= Html::encode($product->name) ?></div>
                         <div class='rating_r rating_r_4 product_rating'><i></i><i></i><i></i><i></i><i></i></div>
-                        <div class='product_text'><p><?= Yii::$app->formatter->asNtext($product->description) ?></p></div>
+                        <div class='product_text'><p><?= Yii::$app->formatter->asNtext($product->description) ?></p>
+                        </div>
                         <div class='order_info d-flex flex-row'>
                             <form action='#'>
                                 <div class='clearfix' style='z-index: 1000;'>
@@ -111,14 +102,19 @@ MagnificPopupAsset::register($this);
                                 </div>
 
                                 <div class='product_price'>$<?= PriceHelper::format($product->price_new) ?></div>
-                                <div class="">Brand: <a href="<?= Html::encode(Url::to(['brand', 'id' => $product->brand->id])) ?>">
+                                <div class="">Brand: <a
+                                            href="<?= Html::encode(Url::to(['brand', 'id' => $product->brand->id])) ?>">
                                         <?= Html::encode($product->brand->name) ?></a>
                                 </div>
                                 <div class="">
-                                   Tags:
-                                    <?php foreach ($product->tags as $tag): ?>
-                                        <a href="<?= Html::encode(Url::to(['tag', 'id' => $tag->id])) ?>"><?= Html::encode($tag->name) ?></a>
-                                    <?php endforeach; ?>
+                                    Tags:
+                                    <?php
+                                    foreach ($product->tags as $tag): ?>
+                                        <a href="<?= Html::encode(
+                                            Url::to(['tag', 'id' => $tag->id])
+                                        ) ?>"><?= Html::encode($tag->name) ?></a>
+                                    <?php
+                                    endforeach; ?>
                                     <p>Product Code: <?= Html::encode($product->code) ?></p>
                                 </div>
                                 <div class='button_container'>
