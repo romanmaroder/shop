@@ -5,6 +5,7 @@ namespace frontend\controllers\shop;
 
 
 use core\forms\project\AddToCartForm;
+use core\forms\project\ReviewForm;
 use core\readModels\project\BrandReadRepository;
 use core\readModels\project\CategoryReadRepository;
 use core\readModels\project\ProductReadRepository;
@@ -29,12 +30,13 @@ class CatalogController extends Controller
         BrandReadRepository $brands,
         TagReadRepository $tags,
         $config = []
-    ) {
+    )
+    {
         parent::__construct($id, $module, $config);
-        $this->products   = $products;
+        $this->products = $products;
         $this->categories = $categories;
-        $this->brands     = $brands;
-        $this->tags       = $tags;
+        $this->brands = $brands;
+        $this->tags = $tags;
     }
 
     /**
@@ -43,14 +45,14 @@ class CatalogController extends Controller
     public function actionIndex()
     {
         $dataProvider = $this->products->getAll();
-        $category     = $this->categories->getRoot();
-        $brands       = $this->brands->getAllBrands();
+        $category = $this->categories->getRoot();
+        $brands = $this->brands->getAllBrands();
 
         return $this->render(
             'index',
             [
-                'category'     => $category,
-                'brands'       => $brands,
+                'category' => $category,
+                'brands' => $brands,
                 'dataProvider' => $dataProvider,
             ]
         );
@@ -66,14 +68,14 @@ class CatalogController extends Controller
         if (!$category = $this->categories->find($id)) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-        $brands       = $this->brands->getAllBrands();
+        $brands = $this->brands->getAllBrands();
         $dataProvider = $this->products->getAllByCategory($category);
 
         return $this->render(
             'category',
             [
-                'category'     => $category,
-                'brands'       => $brands,
+                'category' => $category,
+                'brands' => $brands,
                 'dataProvider' => $dataProvider,
             ]
         );
@@ -95,7 +97,7 @@ class CatalogController extends Controller
         return $this->render(
             'brand',
             [
-                'brand'        => $brand,
+                'brand' => $brand,
                 'dataProvider' => $dataProvider
             ]
         );
@@ -117,7 +119,7 @@ class CatalogController extends Controller
         return $this->render(
             'tag',
             [
-                'tag'          => $tag,
+                'tag' => $tag,
                 'dataProvider' => $dataProvider,
             ]
         );
@@ -137,8 +139,9 @@ class CatalogController extends Controller
         $this->layout = 'blank';
 
         $cartForm = new AddToCartForm($product);
+        $reviewForm = new ReviewForm();
 
-        return $this->render('product', ['product' => $product,'cartForm'=>$cartForm]);
+        return $this->render('product', ['product' => $product, 'cartForm' => $cartForm, 'reviewForm' => $reviewForm]);
     }
 
 }
