@@ -4,9 +4,12 @@
 
 /* @var $product core\entities\project\product\Product */
 
+/* @var $cartForm core\forms\project\AddToCartForm */
+
 use core\helpers\PriceHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\widgets\ProductPhotoListWidget;
+use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Breadcrumbs;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -31,18 +34,18 @@ MagnificPopupAsset::register($this);
             <div class='row'>
                 <div class='col-12'><?= Breadcrumbs::widget(
                         [
-                            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                            'links'   => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                             'options' => ['class' => 'bg-white px-0'],
                         ]
                     ) ?></div>
             </div>
-            <div class='row'>
+            <div class='row' xmlns:fb='http://www.w3.org/1999/xhtml'>
 
                 <?= ProductPhotoListWidget::widget(
                     [
                         'product' => $product,
                     ]
-                );?>
+                ); ?>
 
                 <!-- Selected Image -->
                 <div class='col-lg-5 order-lg-2 order-1'>
@@ -60,69 +63,67 @@ MagnificPopupAsset::register($this);
                         <div class='rating_r rating_r_4 product_rating'><i></i><i></i><i></i><i></i><i></i></div>
                         <div class='product_text'><p><?= Yii::$app->formatter->asNtext($product->description) ?></p>
                         </div>
+                        <div class='product_text'>
+                            Brand: <a
+                                    href="<?= Html::encode(Url::to(['brand', 'id' => $product->brand->id])) ?>">
+                                <?= Html::encode($product->brand->name) ?></a><br>
+                            Tags:
+                            <?php
+                            foreach ($product->tags as $tag): ?>
+                                <a href="<?= Html::encode(
+                                    Url::to(['tag', 'id' => $tag->id])
+                                ) ?>"><?= Html::encode($tag->name) ?></a>
+                            <?php
+                            endforeach; ?>
+                            <p>Product Code: <?= Html::encode($product->code) ?></p>
+                        </div>
                         <div class='order_info d-flex flex-row'>
-                            <form action='#'>
-                                <div class='clearfix' style='z-index: 1000;'>
+                            <?php
+                            $form = ActiveForm::begin() ?>
 
-                                    <!-- Product Quantity -->
-                                    <div class='product_quantity clearfix'>
-                                        <span>Quantity: </span>
-                                        <input id='quantity_input' type='text' pattern='[0-9]*' value='1'>
-                                        <div class='quantity_buttons'>
-                                            <div id='quantity_inc_button' class='quantity_inc quantity_control'><i
-                                                        class='fas fa-chevron-up'></i></div>
-                                            <div id='quantity_dec_button' class='quantity_dec quantity_control'><i
-                                                        class='fas fa-chevron-down'></i></div>
-                                        </div>
+                            <div class='clearfix' style='z-index: 1000;'>
+
+                                <!-- Product Quantity -->
+                                <div class='product_quantity clearfix'>
+                                    <span>Quantity: </span>
+                                    <?= $form->field($cartForm, 'quantity')->textInput(
+                                        ['id' => 'quantity_input', 'pattern' => "[0-9]*"]
+                                    )->label(false) ?>
+                                    <div class='quantity_buttons'>
+                                        <div id='quantity_inc_button' class='quantity_inc quantity_control'><i
+                                                    class='fas fa-chevron-up'></i></div>
+                                        <div id='quantity_dec_button' class='quantity_dec quantity_control'><i
+                                                    class='fas fa-chevron-down'></i></div>
                                     </div>
-
-                                    <!-- Product Color -->
-                                    <ul class='product_color'>
-                                        <li>
-                                            <span>Color: </span>
-                                            <div class='color_mark_container'>
-                                                <div id='selected_color' class='color_mark'></div>
-                                            </div>
-                                            <div class='color_dropdown_button'><i class='fas fa-chevron-down'></i></div>
-
-                                            <ul class='color_list'>
-                                                <li>
-                                                    <div class='color_mark' style='background: #999999;'></div>
-                                                </li>
-                                                <li>
-                                                    <div class='color_mark' style='background: #b19c83;'></div>
-                                                </li>
-                                                <li>
-                                                    <div class='color_mark' style='background: #000000;'></div>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-
                                 </div>
 
-                                <div class='product_price'>$<?= PriceHelper::format($product->price_new) ?></div>
-                                <div class="">Brand: <a
-                                            href="<?= Html::encode(Url::to(['brand', 'id' => $product->brand->id])) ?>">
-                                        <?= Html::encode($product->brand->name) ?></a>
-                                </div>
-                                <div class="">
-                                    Tags:
-                                    <?php
-                                    foreach ($product->tags as $tag): ?>
-                                        <a href="<?= Html::encode(
-                                            Url::to(['tag', 'id' => $tag->id])
-                                        ) ?>"><?= Html::encode($tag->name) ?></a>
-                                    <?php
-                                    endforeach; ?>
-                                    <p>Product Code: <?= Html::encode($product->code) ?></p>
-                                </div>
-                                <div class='button_container'>
-                                    <button type='button' class='button cart_button'>Add to Cart</button>
-                                    <div class='product_fav'><i class='fas fa-heart'></i></div>
-                                </div>
+                                <!-- Product Modification -->
 
-                            </form>
+                                <?= $form->field(
+                                    $cartForm,
+                                    'modification',
+                                    ['options'=>['class'=>'product_modification'],
+                                        ]
+                                )->dropdownList(
+                                    $cartForm->modificationsList(),
+                                    [
+                                        'prompt' => 'Select modifications',
+                                        'class'  => 'product_modification-list',
+                                    ]
+                                )->label(false) ?>
+
+                            </div>
+
+                            <div class='product_price'>$<?= PriceHelper::format($product->price_new) ?></div>
+
+                            <div class='button_container'>
+                                <button type='button' class='button cart_button'>Add to Cart</button>
+                                <div class='product_fav'><i class='fas fa-heart'></i></div>
+                            </div>
+
+
+                            <?php
+                            ActiveForm::end() ?>
                         </div>
                     </div>
                 </div>
@@ -143,3 +144,5 @@ $('.image_list').magnificPopup({
 });
 EOD;
 $this->registerJs($js); ?>
+
+

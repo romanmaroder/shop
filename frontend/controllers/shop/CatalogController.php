@@ -4,6 +4,7 @@
 namespace frontend\controllers\shop;
 
 
+use core\forms\project\AddToCartForm;
 use core\readModels\project\BrandReadRepository;
 use core\readModels\project\CategoryReadRepository;
 use core\readModels\project\ProductReadRepository;
@@ -65,7 +66,7 @@ class CatalogController extends Controller
         if (!$category = $this->categories->find($id)) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-        $brands = $this->brands->getAllBrands();
+        $brands       = $this->brands->getAllBrands();
         $dataProvider = $this->products->getAllByCategory($category);
 
         return $this->render(
@@ -133,8 +134,11 @@ class CatalogController extends Controller
         if (!$product = $this->products->find($id)) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-$this->layout= 'blank';
-        return $this->render('product', ['product' => $product]);
+        $this->layout = 'blank';
+
+        $cartForm = new AddToCartForm($product);
+
+        return $this->render('product', ['product' => $product,'cartForm'=>$cartForm]);
     }
 
 }

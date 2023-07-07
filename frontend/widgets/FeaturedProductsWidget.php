@@ -14,7 +14,6 @@ use yii\base\Widget;
  *
  * @property int limit
  */
-
 class FeaturedProductsWidget extends Widget
 {
     public int $limit;
@@ -32,11 +31,15 @@ class FeaturedProductsWidget extends Widget
      */
     public function run(): string
     {
-        return $this->render(
-            'featured',
-            [
-                'products' => $this->repository->getFeatured($this->limit),
-            ]
-        );
+        if ($products = $this->repository->getFeatured($this->limit)) {
+            return $this->render(
+                'featured',
+                [
+                    'products' => $products,
+                ]
+            );
+        }
+        return false;
+
     }
 }
