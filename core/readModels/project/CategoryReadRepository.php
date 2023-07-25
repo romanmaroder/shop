@@ -34,4 +34,9 @@ class CategoryReadRepository
         }
         return $query->all();
     }
+
+    public function findBySlug($slug): ?Category
+    {
+        return Category::find()->andWhere(['slug'=>$slug])->andWhere(['>','depth',0])->one();
+    }
 }
