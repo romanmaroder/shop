@@ -4,6 +4,7 @@
 namespace core\entities\project\product;
 
 
+use core\services\WaterMarker;
 use yii\db\ActiveRecord;
 use yii\web\UploadedFile;
 use romanmaroder\upload\ImageUploadBehavior;
@@ -68,9 +69,10 @@ class Photo extends ActiveRecord
                 'thumbs'                => [
                     'thumb' => ['width' => 640, 'height' => 480],
                     'admin' => ['width' => 100, 'height' => 70],
-                    'catalog_list' => ['width' => 310, 'height' => 310],
-                    'catalog_product_main' => ['width' => 750, 'height' => 1000],
+                    'catalog_list' => ['width' => 600, 'height' => 310],
+                    'catalog_product_main' => ['processor' => [new WaterMarker(1000,750,'@frontend/web/images/marker.png'),'process']],
                     'catalog_product_additional' => ['width' => 133, 'height' => 133],
+                    'catalog_origin' => ['processor' => [new WaterMarker(1024, 768, '@frontend/web/images/marker.png'), 'process']],
                 ],
             ],
         ];

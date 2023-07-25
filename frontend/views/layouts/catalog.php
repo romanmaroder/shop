@@ -5,6 +5,9 @@
 /* @var $content string */
 
 use frontend\assets\ShopAsset;
+use frontend\widgets\CategoriesWidget;
+
+
 
 ShopAsset::register($this);
 ?>
@@ -18,6 +21,19 @@ $this->beginContent('@frontend/views/layouts/main.php') ?>
         <div class='home_overlay'></div>
         <div class='home_content d-flex flex-column align-items-center justify-content-center'>
             <h2 class='home_title'><?=$this->title;?></h2>
+            <?php if (trim(Yii::$app->params['category_description'] ?: '')): ?>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <?= Yii::$app->formatter->asHtml(Yii::$app->params['category_description'], [
+                            'Attr.AllowedRel' => array('nofollow'),
+                            'HTML.SafeObject' => true,
+                            'Output.FlashCompat' => true,
+                            'HTML.SafeIframe' => true,
+                            'URI.SafeIframeRegexp'=>'%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
+                        ]) ?>
+                    </div>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 
@@ -32,17 +48,10 @@ $this->beginContent('@frontend/views/layouts/main.php') ?>
                     <div class='shop_sidebar'>
                         <div class='sidebar_section'>
                             <div class='sidebar_title'>Categories</div>
-                            <ul class='sidebar_categories'>
-                                <li><a href='#'>Computers & Laptops</a></li>
-                                <li><a href='#'>Cameras & Photos</a></li>
-                                <li><a href='#'>Hardware</a></li>
-                                <li><a href='#'>Smartphones & Tablets</a></li>
-                                <li><a href='#'>TV & Audio</a></li>
-                                <li><a href='#'>Gadgets</a></li>
-                                <li><a href='#'>Car Electronics</a></li>
-                                <li><a href='#'>Video Games & Consoles</a></li>
-                                <li><a href='#'>Accessories</a></li>
-                            </ul>
+
+                            <?= CategoriesWidget::widget([
+                                    'active'=>$this->params['active_category'] ?? null
+                            ]) ?>
                         </div>
                         <div class='sidebar_section filter_by_section'>
                             <div class='sidebar_title'>Filter By</div>

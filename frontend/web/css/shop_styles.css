@@ -1705,7 +1705,8 @@ select option
 	-o-transition: all 200ms ease;
 	transition: all 200ms ease;
 }
-.sidebar_categories li a:hover
+.sidebar_categories li a:hover,
+.sidebar_categories li a.active
 {
 	color: #0e8ce4;
 }

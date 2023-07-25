@@ -20,27 +20,9 @@ foreach ($category->parents as $parent) {
 $this->params['breadcrumbs'][] = $category->name;
 
 $this->params['active_category'] = $category;
+Yii::$app->params['category_description'] = $category->description;
 ?>
 
-<h1><?= Html::encode($category->getHeadingTitle()) ?></h1>
-
-<?= $this->render('_subcategories', [
-    'category' => $category
-]) ?>
-
-<?php if (trim($category->description ?: '')): ?>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <?= Yii::$app->formatter->asHtml($category->description, [
-            'Attr.AllowedRel' => array('nofollow'),
-            'HTML.SafeObject' => true,
-            'Output.FlashCompat' => true,
-            'HTML.SafeIframe' => true,
-            'URI.SafeIframeRegexp'=>'%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
-            ]) ?>
-        </div>
-    </div>
-<?php endif; ?>
 
 <?= $this->render('_list', [
     'dataProvider' => $dataProvider

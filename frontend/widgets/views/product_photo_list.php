@@ -10,8 +10,8 @@
         <?php
         foreach ($product->photos as $i => $photo): ?>
             <?php if ($i < $limit ) :?>
-                <li data-image='<?= $photo->getUploadedFileUrl('file') ?>'>
-                    <a href='<?= $photo->getUploadedFileUrl('file') ?>'>
+                <li data-image='<?= $photo->getThumbFileUrl('file','catalog_origin') ?>'>
+                    <a href='<?= $photo->getThumbFileUrl('file','catalog_product_main') ?>'>
                         <img src='<?= $photo->getThumbFileUrl('file', 'catalog_product_main') ?>'
                              alt=''>
                     </a>
