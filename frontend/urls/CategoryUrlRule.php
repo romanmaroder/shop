@@ -28,6 +28,7 @@ class CategoryUrlRule extends BaseObject implements UrlRuleInterface
 
     /**
      * @inheritDoc
+     * @throws UrlNormalizerRedirectException
      */
     public function parseRequest($manager, $request)
     {
@@ -51,10 +52,10 @@ class CategoryUrlRule extends BaseObject implements UrlRuleInterface
     {
         if ($route == 'shop/catalog/category') {
             if (empty($params['id'])) {
-                throw new \yii\base\InvalidParamException('Empty id.');
+                throw new \yii\base\InvalidArgumentException('Empty id.');
             }
             if (!$category = $this->repository->find($params['id'])) {
-                throw new \yii\base\InvalidParamException('Undefined id.');
+                throw new \yii\base\InvalidArgumentException('Undefined id.');
             }
 
             $url = $this->prefix . '/' . $this->getCategoryPath($category);
