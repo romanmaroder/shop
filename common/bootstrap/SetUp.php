@@ -7,6 +7,7 @@ use core\services\auth\PasswordResetService;
 use core\services\contact\ContactService;
 use Yii;
 use yii\base\BootstrapInterface;
+use yii\caching\Cache;
 use yii\di\Instance;
 use yii\mail\MailerInterface;
 
@@ -34,11 +35,16 @@ class SetUp implements BootstrapInterface
                 return $app->mailer;
             }
         );
+
+        $container->setSingleton(Cache::class, function () use ($app) {
+            return $app->cache;
+        });
+
         $container->setSingleton(
             ContactService::class,
             [],
             [
-               // $app->params['adminEmail'],
+                // $app->params['adminEmail'],
 
                 /* Optional parameter. The framework will substitute MailerInterface itself,
                    via reflection, registered in the container
