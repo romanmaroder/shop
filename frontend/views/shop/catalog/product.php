@@ -8,6 +8,7 @@
 
 /* @var $reviewForm core\forms\project\ReviewForm */
 
+use core\helpers\LastSlash;
 use core\helpers\PriceHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\widgets\ProductPhotoListWidget;
@@ -31,6 +32,7 @@ foreach ($product->category->parents as $parent) {
 $this->params['breadcrumbs'][] = ['label'=>$product->category->name,'url'=>['category','id'=>$product->category->id]];
 $this->params['breadcrumbs'][] = $product->name;
 $this->params['active_category'] = $product->category;
+
 
 MagnificPopupAsset::register($this);
 ?>
@@ -91,10 +93,13 @@ MagnificPopupAsset::register($this);
                             <?= Html::encode($product->brand->name) ?></a><br>
                         Tags:
                         <?php
-                        foreach ($product->tags as $tag): ?>
-                            <a href="<?= Html::encode(
-                                Url::to(['tag', 'id' => $tag->id])
-                            ) ?>"><?= Html::encode($tag->name) ?></a>
+
+                        foreach ($product->tags as $i =>$tag): ?>
+
+                                <a href="<?= Html::encode(Url::to(['tag', 'id' => $tag->id])) ?>">
+                                    <?= Html::encode($tag->name) ?>
+                                </a> <?=LastSlash::slash($i,$product->tags) ;?>
+
                         <?php
                         endforeach; ?>
                         <p>Product Code: <?= Html::encode($product->code) ?></p>

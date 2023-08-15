@@ -8,6 +8,7 @@ use yii\helpers\Html;
 
 $this->title = 'Catalog';
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 
 

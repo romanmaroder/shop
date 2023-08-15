@@ -16,7 +16,6 @@ use yii\web\NotFoundHttpException;
 class CatalogController extends Controller
 {
     public $layout = 'catalog';
-
     private $products;
     private $categories;
     private $brands;

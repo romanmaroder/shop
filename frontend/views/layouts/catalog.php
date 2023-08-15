@@ -19,19 +19,19 @@ $this->beginContent('@frontend/views/layouts/main.php') ?>
         <div class='home_overlay'></div>
         <div class='home_content d-flex flex-column align-items-center justify-content-center'>
             <h2 class='home_title'><?= $this->title; ?></h2>
-            <?php if (trim($this->params['active_category']['description'] ?: '')):  ?>
+            <?php /*if (trim($this->params['active_category']['description'] ?: '')):   */?><!--
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <?= Yii::$app->formatter->asHtml($this->params['active_category']['description'], [
+                        <?/*= Yii::$app->formatter->asHtml($this->params['active_category']['description'], [
                             'Attr.AllowedRel' => array('nofollow'),
                             'HTML.SafeObject' => true,
                             'Output.FlashCompat' => true,
                             'HTML.SafeIframe' => true,
                             'URI.SafeIframeRegexp'=>'%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
-                        ])  ?>
+                        ])  */?>
                     </div>
                 </div>
-            <?php endif;  ?>
+            --><?php /*endif;   */?>
         </div>
     </div>
 
@@ -48,7 +48,7 @@ $this->beginContent('@frontend/views/layouts/main.php') ?>
                             <div class='sidebar_title'>Categories</div>
 
                             <?= CategoriesWidget::widget([
-                                'active' => $this->params['active_category'] ?? null
+                                'active' => $this->params['active_category'] ?? null,
                             ]) ?>
                         </div>
                         <div class='sidebar_section filter_by_section'>

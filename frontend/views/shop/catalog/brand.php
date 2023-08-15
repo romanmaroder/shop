@@ -15,10 +15,6 @@ $this->params['breadcrumbs'][] = ['label' => 'Catalog', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $brand->name;
 ?>
 
-    <h1><?= Html::encode($brand->name) ?></h1>
-
-    <hr />
-
 <?= $this->render('_list', [
     'dataProvider' => $dataProvider
 ]) ?>

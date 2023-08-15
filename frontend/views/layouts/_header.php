@@ -1,5 +1,6 @@
 <?php
 
+use frontend\widgets\CategoriesWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -160,8 +161,10 @@ use yii\helpers\Url;
                                 <div class='cat_burger'><span></span><span></span><span></span></div>
                                 <div class='cat_menu_text'>categories</div>
                             </div>
-
-                            <ul class='cat_menu'>
+                            <?= \frontend\widgets\MainNavigationCategoriesWidget::widget([
+                                'active' => $this->params['active_category'] ?? null
+                            ]) ?>
+                            <!--<ul class='cat_menu'>
                                 <li><a href='#'>Computers & Laptops <i class='fas fa-chevron-right ml-auto'></i></a>
                                 </li>
                                 <li><a href='#'>Cameras & Photos<i class='fas fa-chevron-right'></i></a></li>
@@ -172,16 +175,16 @@ use yii\helpers\Url;
                                             <a href='#'>Menu Item<i class='fas fa-chevron-right'></i></a>
                                             <ul>
                                                 <li><a href='#'>Menu Item<i
-                                                            class='fas fa-chevron-right'></i></a>
+                                                                class='fas fa-chevron-right'></i></a>
                                                 </li>
                                                 <li><a href='#'>Menu Item<i
-                                                            class='fas fa-chevron-right'></i></a>
+                                                                class='fas fa-chevron-right'></i></a>
                                                 </li>
                                                 <li><a href='#'>Menu Item<i
-                                                            class='fas fa-chevron-right'></i></a>
+                                                                class='fas fa-chevron-right'></i></a>
                                                 </li>
                                                 <li><a href='#'>Menu Item<i
-                                                            class='fas fa-chevron-right'></i></a>
+                                                                class='fas fa-chevron-right'></i></a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -198,7 +201,7 @@ use yii\helpers\Url;
                                 <li><a href='#'>Video Games & Consoles<i class='fas fa-chevron-right'></i></a>
                                 </li>
                                 <li><a href='#'>Accessories<i class='fas fa-chevron-right'></i></a></li>
-                            </ul>
+                            </ul>-->
                         </div>
 
                         <!-- Main Nav Menu -->

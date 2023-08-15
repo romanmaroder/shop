@@ -3,8 +3,11 @@
 namespace common\bootstrap;
 
 
+use core\entities\project\Category;
+use core\readModels\project\CategoryReadRepository;
 use core\services\auth\PasswordResetService;
 use core\services\contact\ContactService;
+use frontend\urls\CategoryUrlRule;
 use Yii;
 use yii\base\BootstrapInterface;
 use yii\caching\Cache;
@@ -36,7 +39,7 @@ class SetUp implements BootstrapInterface
             }
         );
 
-        $container->setSingleton(Cache::class, function () use ($app) {
+        $container->setSingleton('cache', function () use ($app) {
             return $app->cache;
         });
 
@@ -51,5 +54,10 @@ class SetUp implements BootstrapInterface
                 Instance::of(MailerInterface::class) */
             ]
         );
+
+        $container->set(CategoryUrlRule::class, [], [
+            Instance::of(CategoryReadRepository::class),
+            Instance::of('cache'),
+        ]);
     }
 }

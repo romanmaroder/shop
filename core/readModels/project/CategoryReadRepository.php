@@ -14,6 +14,7 @@ class CategoryReadRepository
         return Category::find()->roots()->one();
     }
 
+
     public function find($id): ?Category
     {
         return Category::find()->andWhere(['id' => $id])->andWhere(['>', 'depth', 0])->one();
@@ -30,13 +31,21 @@ class CategoryReadRepository
             }
             $query->andWhere($criteria);
         } else {
+            //$query->andWhere(['>=','depth', 1]);
             $query->andWhere(['depth' => 1]);
         }
         return $query->all();
     }
 
+    public function getTreeWithSubsOfMainMenu(): array
+    {
+        return Category::find()->andWhere(['>', 'depth', 0])->orderBy('lft')->all();
+
+
+    }
+
     public function findBySlug($slug): ?Category
     {
-        return Category::find()->andWhere(['slug'=>$slug])->andWhere(['>','depth',0])->one();
+        return Category::find()->andWhere(['slug' => $slug])->andWhere(['>', 'depth', 0])->one();
     }
 }
