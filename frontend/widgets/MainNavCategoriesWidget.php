@@ -34,13 +34,14 @@ class MainNavCategoriesWidget extends Widget
             echo Html::beginTag('ul', ['class' => $depth == 1 ? 'cat_menu' : '']);
 
             foreach ($categories as $category) {
+                $active = $this->active && ($this->active->id == $category->id || $this->active->isChildOf($category));
 
                 if ($category->depth == $depth) {
 
                     echo Html::beginTag('li', ['class' => $category->children ? 'hassubs' : '']);
 
                     echo Html::a(Html::encode($category->name) . ($category->children ? "<i class='fas fa-chevron-right'></i>" : ''),
-                        ['/shop/catalog/category', 'id' => $category->id],
+                        ['/shop/catalog/category', 'id' => $category->id],['class' => $active ? 'active' : '']
                     );
 
                     if ($category->children) {

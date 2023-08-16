@@ -1706,7 +1706,8 @@ select option
 	transition: all 200ms ease;
 }
 .sidebar_categories li a:hover,
-.sidebar_categories li a.active
+.sidebar_categories li a.active,
+.cat_menu li a.active
 {
 	color: #0e8ce4;
 }
