@@ -98,7 +98,7 @@ MagnificPopupAsset::register($this);
 
                                 <a href="<?= Html::encode(Url::to(['tag', 'id' => $tag->id])) ?>">
                                     <?= Html::encode($tag->name) ?>
-                                </a> <?=LastSlash::slash($i,$product->tags) ;?>
+                                </a> <?= LastSlash::slash($i, $product->tags); ?>
 
                         <?php
                         endforeach; ?>

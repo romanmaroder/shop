@@ -37,10 +37,9 @@ class CategoryReadRepository
         return $query->all();
     }
 
-    public function getTreeWithSubsOfMainMenu(): array
+    public function getTreeForMainMenu(): array
     {
-        return Category::find()->andWhere(['>', 'depth', 0])->orderBy('lft')->all();
-
+        return $this->getRoot()->getDescendants()->all();
 
     }
 

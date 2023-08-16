@@ -161,7 +161,7 @@ use yii\helpers\Url;
                                 <div class='cat_burger'><span></span><span></span><span></span></div>
                                 <div class='cat_menu_text'>categories</div>
                             </div>
-                            <?= \frontend\widgets\MainNavigationCategoriesWidget::widget([
+                            <?= \frontend\widgets\MainNavCategoriesWidget::widget([
                                 'active' => $this->params['active_category'] ?? null
                             ]) ?>
                             <!--<ul class='cat_menu'>
