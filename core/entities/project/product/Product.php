@@ -10,6 +10,7 @@ use core\entities\project\Brand;
 use core\entities\project\Category;
 use core\entities\project\product\queries\ProductQuery;
 use core\entities\project\Tag;
+use core\entities\user\WishlistItem;
 use DomainException;
 use JetBrains\PhpStorm\Pure;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
@@ -44,6 +45,7 @@ use yii\web\UploadedFile;
  * @property Photo $mainPhoto
  * @property Review[] $reviews
  * @property RelatedAssignment[] relatedAssignments
+ * @property string $meta_json
  */
 class Product extends ActiveRecord
 {
@@ -627,6 +629,10 @@ class Product extends ActiveRecord
         return $this->hasMany(Review::class, ['product_id' => 'id']);
     }
 
+    public function getWishlistItems(): ActiveQuery
+    {
+return  $this->hasMany(WishlistItem::class,['product_id'=>'id']);
+    }
     public function getFullName() //TODO 'Куда деть этот метод'
     {
         return $this->brand->name . ' ' . $this->name;

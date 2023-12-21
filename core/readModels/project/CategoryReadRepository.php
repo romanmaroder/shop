@@ -31,7 +31,6 @@ class CategoryReadRepository
             }
             $query->andWhere($criteria);
         } else {
-            //$query->andWhere(['>=','depth', 1]);
             $query->andWhere(['depth' => 1]);
         }
         return $query->all();

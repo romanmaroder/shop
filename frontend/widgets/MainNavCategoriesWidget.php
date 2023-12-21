@@ -57,7 +57,7 @@ class MainNavCategoriesWidget extends Widget
 
     public function run()
     {
-        $this->printNode($this->categories->getTreeForMainMenu(), 1);
+        $this->printNode($this->categories->getTreeForMainMenu());
     }
 
 }

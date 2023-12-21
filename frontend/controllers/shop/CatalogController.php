@@ -124,6 +124,12 @@ class CatalogController extends Controller
         );
     }
 
+
+    public function actionSearch()
+    {
+        $form = new SearchForm();
+    }
+
     /**
      * @param $id
      * @return mixed
