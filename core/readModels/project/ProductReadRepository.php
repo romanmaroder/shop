@@ -82,11 +82,24 @@ class ProductReadRepository
                             'desc' => ['p.price_new' => SORT_DESC],
                         ],
                         'rating' => [
-                            'asc'  => ['p.rating' => SORT_ASC],
+                            'asc' => ['p.rating' => SORT_ASC],
                             'desc' => ['p.rating' => SORT_DESC],
                         ],
                     ],
                 ],
+            ]
+        );
+    }
+
+    public function getWishList($userId): ActiveDataProvider
+    {
+        return new ActiveDataProvider(
+            [
+                'query' => Product::find()
+                    ->alias('p')->active('p')
+                    ->joinWith('wishlistItems w', false, 'INNER JOIN')
+                    ->andWhere(['w.user_id' => $userId]),
+                'sort' => false,
             ]
         );
     }

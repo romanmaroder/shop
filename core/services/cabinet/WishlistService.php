@@ -1,5 +1,5 @@
 <?php
-
+namespace core\services\cabinet;
 
 use core\repositories\project\ProductRepository;
 use core\repositories\UserRepository;

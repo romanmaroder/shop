@@ -216,7 +216,14 @@ use yii\helpers\Url;
                                     <ul>
                                         <li><a href='<?= Html::encode(
                                                 Url::to(['/shop/catalog/index'])
-                                            ); ?>'>Shop<i class='fas fa-chevron-down'></i></a></li>
+                                            ); ?>'>Catalog<i class='fas fa-chevron-down'></i></a>
+                                        </li>
+                                        <?php if (!Yii::$app->user->isGuest):?>
+                                        <li><a href='<?= Html::encode(
+                                            Url::to(['/cabinet/default/index'])
+                                        ); ?>'>Cabinet<i class='fas fa-chevron-down'></i></a>
+                                        </li>
+                                        <?php endif;?>
                                         <li><a href='product.html'>Product<i
                                                     class='fas fa-chevron-down'></i></a>
                                         </li>
